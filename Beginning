@@ -1,26 +1,23 @@
 def town_movement(move):
-    town_map = [['Tavern','Inn','Market'],\
-            ['Blacksmith','Street','Townhall'],\
+    town_map = [['Tavern','Grovertown','Market'],
+            ['Blacksmith','Street','Townhall'],
             ['House of an old man','Street','Smaller house']]
     original_pos = town_map[0][1]
     if(move == "L"):
-        words 
-    if(move == "R"):
-        words 
-    if(move == "D"):
-        words 
-    if(move == "U"):
-        words 
+        print("You are now at The" , str(town_map[0][0]))
+    #if(move == "R"):
+       # words 
+  #  if(move == "D"):
+   #     words 
+   # if(move == "U"):
+     #   words 
 
-
+#Main 
 print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
 print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
 print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
-print("Walking outside of the room you realize you are in an Inn.")
-print("Walking outside of the building you see the sign 'Welcom to Grovertown Inn.' When you look around, you realize you're in a small town with a couple of buildings around you.")
-print("To the left there seems to be a Tavern. To the right seems to be street vendors. To the south there is a stree.")
+print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
+print("When you look around, you realize you're in a small town with a couple of buildings around you.")
+print("To the left there seems to be a Tavern. To the right seems to be street vendors. To the south there is a street.")
 direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, and 'D' for Down)")
-print(town_movement(direction)) 
-
-
-
+town_movement(direction)
