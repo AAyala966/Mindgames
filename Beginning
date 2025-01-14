@@ -1,23 +1,40 @@
-def town_movement(move):
-    town_map = [['Tavern','Grovertown','Market'],
+
+def town_movement(move, row, column):
+    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked','Grovertown Inn. A one bedroom building with a sign over it. This is where you woke up.','Market. An empty yet colorful place. All street vendor stalls are empty.'],
             ['Blacksmith','Street','Townhall'],
             ['House of an old man','Street','Smaller house']]
-    original_pos = town_map[0][1]
+    position = town_map[row][column]
     if(move == "L"):
-        print("You are now at The" , str(town_map[0][0]))
-    #if(move == "R"):
-       # words 
-  #  if(move == "D"):
-   #     words 
-   # if(move == "U"):
-     #   words 
+        print("You are now at The" , str(town_map[row][column-1]))
+        #Do I need position = town_map[row][column]?
+        position = town_map[row][column-1]
+    if(move == "R"):
+        print("You are now at The" , str(town_map[row][column+1]))
+        position = town_map[row][column+1]
+    if(move == "D"):
+        print("You are now at The" , str(town_map[row-1][column])) 
+        position = town_map[row-1][column]
+    if(move == "U"):
+        print("You are now at The" , str(town_map[row+1][column]))
+        position = town_map[row-1][column] 
 
 #Main 
+r = 0
+c = 1
 print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
 print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
 print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
 print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
 print("When you look around, you realize you're in a small town with a couple of buildings around you.")
 print("To the left there seems to be a Tavern. To the right seems to be street vendors. To the south there is a street.")
-direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, and 'D' for Down)")
-town_movement(direction)
+while(r != 2 and c != 2):
+    direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, and 'D' for Down)")
+    if (direction == "L"):
+        c -= 1
+    elif (direction == "R"):
+        c += 1
+    elif (direction == "D"):
+        r -= 1
+    else:
+        r += 1
+    town_movement(direction, r, c)
