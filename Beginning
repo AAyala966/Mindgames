@@ -1,8 +1,24 @@
+def Intro():
+    print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
+    print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
+    print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
+    print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
+    print("When you look around, you realize you're in a small town with a couple of buildings around you.")
+
+def man_conversation1():
+    print("Old Man: Welcome to the town of Grovertown. This town has been quite empty for the last 3 years and I seem to be the last one left here. Why are you here?")
+    print("You: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?")
+    print("Old Man: If you really want to leave I can help you, but I'll need something from you.")
+    print("You: And that is?")
+    print("Old Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
+    print("You: I guess I can help you.")
+    print("Old Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
+    print("The old man gives you a key with a metal pendent in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
 
 def town_movement(move, row, column):
-    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked','Grovertown Inn. A one bedroom building with a sign over it. This is where you woke up.','Market. An empty yet colorful place. All street vendor stalls are empty.'],
-            ['Blacksmith','Street','Townhall'],
-            ['House of an old man','Street','Smaller house']]
+    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked. Down is the Blacksmith, and right is the Inn.','Grovertown Inn. A one bedroom building with a sign over it. This is where you woke up. To the left is the Tavern, to the right is the Market, and down is a Street.','Market. An empty yet colorful place. All street vendor stalls are empty. To the left is the Inn, and down is the Townhall.'],
+            ['Blacksmith. A smaller building with large barn doors that are closed. To the right is the main street, and down is an smaller house.','Street. A cobblestone road through the middle of town. Up is the inn, Left is the Blacksmith, right is the Townhall, and Down is the street.','Townhall. It is the biggest building in the town, however, the door is also locked. Up is the Market, left is the street, and down is a small house.'],
+            ['House of an old man. You knock on the the front door and you hear a voice yell from inside, "come inside." You walk inside where you see a man with grey hair sitting on a couch.','Street. A continuation of the main street. Up is the street, left is a small house, and right is another small house.','Smaller house. You try knocking on the door but it is locked.']]
     position = town_map[row][column]
     if(move == "L"):
         print("You are now at The" , str(town_map[row][column-1]))
@@ -19,22 +35,22 @@ def town_movement(move, row, column):
         position = town_map[row-1][column] 
 
 #Main 
-r = 0
-c = 1
-print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
-print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
-print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
-print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
-print("When you look around, you realize you're in a small town with a couple of buildings around you.")
-print("To the left there seems to be a Tavern. To the right seems to be street vendors. To the south there is a street.")
-while(r != 2 and c != 2):
+town_r = 0
+town_c = 1
+Intro()
+print("To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
+while(town_r != 2 and town_c != 0):
     direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, and 'D' for Down)")
     if (direction == "L"):
-        c -= 1
+        town_c -= 1
     elif (direction == "R"):
-        c += 1
+        town_c += 1
     elif (direction == "D"):
-        r -= 1
+        town_r -= 1
     else:
-        r += 1
-    town_movement(direction, r, c)
+        town_r += 1
+    town_movement(direction, town_r, town_c)
+man_conversation1()
+air_key = 1 
+town_r = 0
+town_c = 1
