@@ -4,16 +4,17 @@ def Intro():
     print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
     print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
     print("When you look around, you realize you're in a small town with a couple of buildings around you.")
+    print("To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
 
 def man_conversation1():
     print("Old Man: Welcome to the town of Grovertown. This town has been quite empty for the last 3 years and I seem to be the last one left here. Why are you here?")
-    print("You: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?")
-    print("Old Man: If you really want to leave I can help you, but I'll need something from you.")
-    print("You: And that is?")
-    print("Old Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
-    print("You: I guess I can help you.")
-    print("Old Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
-    print("The old man gives you a key with a metal pendant in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
+    print("\nYou: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?")
+    print("\nOld Man: If you really want to leave I can help you, but I'll need something from you.")
+    print("\nYou: And that is?")
+    print("\nOld Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
+    print("\nYou: I guess I can help you.")
+    print("\nOld Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
+    print("\nThe old man gives you a key with a metal pendant in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
 
 def town_movement(move, row, column):
     town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked. Down is the Blacksmith, and right is the Inn.',' Grovertown Inn. A one-bedroom building with a sign over it. This is where you woke up. To the left is the Tavern, to the right is the Market, and down is a Street.','Market. An empty yet colorful place. All street vendor stalls are empty. To the left is the Inn, and down is the Townhall.'],
@@ -29,15 +30,30 @@ def town_movement(move, row, column):
     elif(move == "U" and row < len(town_map) - 1):
         row += 1
     position = town_map[row][column]
-    print("You are now at The" , position)
+    print("\nYou are now at The" , position, "\n")
+
+def dream_movement(move, row, column):
+    dream_map = [['Gate to the sky place', 'Gate to sky place', 'Gate to the sky place'],
+                 ['Gate to fire place', 'Main area', 'Gate to water place'],
+                 ['Gate to the groud place', 'Gate to ground place' , 'Gate to the ground place']]
+    position = dream_map[row][column]
+    if (move == "L" and column > 0):
+        column -= 1
+    elif(move == "R" and column < len(dream_map[0]) - 1):
+        column += 1
+    elif(move == "D" and row > 0):
+        row -= 1 
+    elif(move == "U" and row < len(dream_map) - 1):
+        row += 1
+    position = dream_map[row][column]
+    print("\nYou are now at The" , position, "\n")
 
 #Main 
 town_r = 0
 town_c = 1
 Intro()
-print("To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
 while(town_r != 2 and town_c != 0):
-    direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, and 'D' for Down)")
+    direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
     if (direction == "L"):
         town_c -= 1
     elif (direction == "R"):
@@ -48,6 +64,19 @@ while(town_r != 2 and town_c != 0):
         town_r += 1
     town_movement(direction, town_r, town_c)
 man_conversation1()
-air_key = 1 
+air_key1 = 1 
 town_r = 0
 town_c = 1
+dream_r = 1
+dream_c = 1 
+while(dream_r != 0):
+    direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
+    if (direction1 == "L"):
+        dream_c -= 1
+    elif (direction1 == "R"):
+        dream_c += 1
+    elif (direction1 == "D"):
+        dream_r -= 1
+    else:
+        town_r += 1
+    dream_movement(direction1, dream_r, dream_c)
