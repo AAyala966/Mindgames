@@ -13,26 +13,23 @@ def man_conversation1():
     print("Old Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
     print("You: I guess I can help you.")
     print("Old Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
-    print("The old man gives you a key with a metal pendent in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
+    print("The old man gives you a key with a metal pendant in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
 
 def town_movement(move, row, column):
-    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked. Down is the Blacksmith, and right is the Inn.','Grovertown Inn. A one bedroom building with a sign over it. This is where you woke up. To the left is the Tavern, to the right is the Market, and down is a Street.','Market. An empty yet colorful place. All street vendor stalls are empty. To the left is the Inn, and down is the Townhall.'],
-            ['Blacksmith. A smaller building with large barn doors that are closed. To the right is the main street, and down is an smaller house.','Street. A cobblestone road through the middle of town. Up is the inn, Left is the Blacksmith, right is the Townhall, and Down is the street.','Townhall. It is the biggest building in the town, however, the door is also locked. Up is the Market, left is the street, and down is a small house.'],
-            ['House of an old man. You knock on the the front door and you hear a voice yell from inside, "come inside." You walk inside where you see a man with grey hair sitting on a couch.','Street. A continuation of the main street. Up is the street, left is a small house, and right is another small house.','Smaller house. You try knocking on the door but it is locked.']]
+    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked. Down is the Blacksmith, and right is the Inn.',' Grovertown Inn. A one-bedroom building with a sign over it. This is where you woke up. To the left is the Tavern, to the right is the Market, and down is a Street.','Market. An empty yet colorful place. All street vendor stalls are empty. To the left is the Inn, and down is the Townhall.'],
+            ['Blacksmith. A smaller building with large barn doors that are closed. To the right is the main street, and down is a smaller house.',' Street. A cobblestone road through the middle of town. Up is the inn, Left is the Blacksmith, right is the Townhall, and Down is the street.','Townhall. It is the biggest building in the town, however, the door is also locked. Up is the Market, left is the street, and down is a small house.'],
+            ['House of an old man. You knock on the front door and hear a voice yell from inside, "Come inside." You walk inside where you see a man with grey hair sitting on a couch.',' Street. A continuation of the main street. Up is the street, left is a small house, and right is another small house.','Smaller house. You try knocking on the door but it is locked.']]
     position = town_map[row][column]
-    if(move == "L"):
-        print("You are now at The" , str(town_map[row][column-1]))
-        #Do I need position = town_map[row][column]?
-        position = town_map[row][column-1]
-    if(move == "R"):
-        print("You are now at The" , str(town_map[row][column+1]))
-        position = town_map[row][column+1]
-    if(move == "D"):
-        print("You are now at The" , str(town_map[row-1][column])) 
-        position = town_map[row-1][column]
-    if(move == "U"):
-        print("You are now at The" , str(town_map[row+1][column]))
-        position = town_map[row-1][column] 
+    if(move == "L" and column > 0):
+        column -= 1
+    elif(move == "R" and column < len(town_map[0]) - 1):
+        column += 1
+    elif(move == "D" and row > 0):
+        row -= 1 
+    elif(move == "U" and row < len(town_map) - 1):
+        row += 1
+    position = town_map[row][column]
+    print("You are now at The" , position)
 
 #Main 
 town_r = 0
