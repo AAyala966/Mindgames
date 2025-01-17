@@ -32,10 +32,16 @@ def town_movement(move, row, column):
     position = town_map[row][column]
     print("\nYou are now at The" , position, "\n")
 
-def dream_movement(move, row, column):
-    dream_map = [['Gate to the sky place', 'Gate to sky place', 'Gate to the sky place'],
+def sky_map (aKey):
+    sky_map =[['Nothing is here', 'A white gate with a big number three on it.', 'Nothing is here.']
+              ['A white gate with a big number 1 on it.', 'Main area.', 'A gate with a big number 2 on it']
+              ['Unavailable to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
+    position = sky_map[1][1] 
+
+def dream_map(move, row, column, akey, gkey, wkey, fkey):
+    dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
                  ['Gate to fire place', 'Main area', 'Gate to water place'],
-                 ['Gate to the groud place', 'Gate to ground place' , 'Gate to the ground place']]
+                 ['There is nothing here.', 'Gate to ground place' , 'There is nothing here.']]
     position = dream_map[row][column]
     if (move == "L" and column > 0):
         column -= 1
@@ -47,24 +53,14 @@ def dream_movement(move, row, column):
         row += 1
     position = dream_map[row][column]
     print("\nYou are now at The" , position, "\n")
+    if (position == dream_map[0][1] or position == dream_map[1][0] or position == dream_map[1][2] or position == dream_map[2][1] ):
+        inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
+        sky_map(akey) 
 
 #Main 
 town_r = 0
 town_c = 1
 Intro()
-#while True:
-    direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
-    if (direction == "L"):
-        town_c -= 1
-    elif (direction == "R"):
-        town_c += 1
-    elif (direction == "D"):
-        town_r -= 1
-    else:
-        town_r += 1
-    town_movement(direction, town_r, town_c)
-    if (town_r != 2 and town_c != 0):
-        break
 while(town_r != 2 and town_c != 0):
     direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
     if (direction == "L"):
@@ -78,6 +74,9 @@ while(town_r != 2 and town_c != 0):
     town_movement(direction, town_r, town_c)
 man_conversation1()
 air_key1 = 1 
+ground_key1 = 0
+water_key1 = 0
+fire_key1 = 0
 town_r = 0
 town_c = 1
 dream_r = 1
@@ -92,4 +91,4 @@ while(dream_r != 0):
         dream_r -= 1
     else:
         town_r += 1
-    dream_movement(direction1, dream_r, dream_c)
+    dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
