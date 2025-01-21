@@ -1,3 +1,4 @@
+import random
 def Intro():
     print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
     print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
@@ -32,11 +33,24 @@ def town_movement(move, row, column):
     position = town_map[row][column]
     print("\nYou are now at The" , position, "\n")
 
-def sky_map (aKey):
-    sky_map =[['Nothing is here', 'A white gate with a big number three on it.', 'Nothing is here.']
+def sky_map (aKey, row=1, column=1):
+    sky_map =[['Nothing is here', 'A white gate with a big number 3 on it.', 'Nothing is here.']
               ['A white gate with a big number 1 on it.', 'Main area.', 'A gate with a big number 2 on it']
               ['Unavailable to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
-    position = sky_map[1][1] 
+    position = sky_map[1][1]
+    while(position != sky_map[1][0]):
+        move = input("What direction do you want to go?")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(sky_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1 
+        elif(move == "U" and row < len(sky_map) - 1):
+            row += 1
+        position = sky_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    gate1_gate() 
 
 def dream_map(move, row, column, akey, gkey, wkey, fkey):
     dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
@@ -57,9 +71,56 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
         inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
         sky_map(akey) 
 
-#Main 
+def gate1_gate():
+    print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
+    number = random.randint(1000, 2000)
+    guess = int(input("Enter your first number: "))
+    while(guess != number):
+        print("Incorrect guess.")
+        choice = input("Do you want to guess (G) or have hint (H)?")
+        round = 0
+        while(choice == "H"):
+            if (number % 2 == 0 and round == 0):
+                print("The number is even.")
+                round += 1
+            else: 
+                print("The number is odd")
+                round += 1
+                choice == input("Do you want to guess (G) or have a hint(H)?")
+            if (number % 3 == 0 and round == 1):
+                print("The number is divisible by 3.")
+                round += 1 
+            else: 
+                print("The number is not divisible by 3.")
+                round += 1 
+                choice == input("Do you want to guess (G) or have a hint (H)?")
+            if (number % 5 == 0 and round == 3):
+                print("The number is divisible by 5.")
+                round += 1 
+            else: 
+                print("The number is not divisible by 5.")
+                round += 1
+                choice == input("Do you want to guess (G) or have a hint (H)?")
+            if (number >= 1776 and round == 4):
+                print("The number is greater than the year the United States gained independence from Britain.")
+                round += 1 
+            else: 
+                print("The number is less than the year the United States gained independence from Britain.")
+                round += 1
+                choice == input("Do you want to guess (G) or have a hint (H)?")
+            if (number <= 1500 and round == 5):
+                print("The number is less than the number 1500.")
+                round += 1
+                choice = input("Do you want to guess (G) or have a hint (H)?")
+            else:
+                print("The number is greater than the year 1500.")
+                round += 1
+                choice == input("Do you want to guess (G) or have a hint (H)?")
+             
+
+ #Main
 town_r = 0
-town_c = 1
+town_c = 1 
 Intro()
 while(town_r != 2 and town_c != 0):
     direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
