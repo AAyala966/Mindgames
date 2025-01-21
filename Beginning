@@ -152,4 +152,4 @@ while(dream_r != 0):
         dream_r -= 1
     else:
         town_r += 1
-    dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
+    #dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
