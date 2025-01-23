@@ -51,7 +51,7 @@ def sky_map (aKey, row=1, column=1):
             row += 1
         position = sky_map[row][column]
         print("\nYou are now at The" , position, "\n")
-    gate1_gate() 
+    gate1() 
 
 def dream_map(move, row, column, akey, gkey, wkey, fkey):
     dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
@@ -72,7 +72,7 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
         inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
         sky_map(akey) 
 
-def gate1_gate():
+def gate1():
     print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
     number = random.randint(1000, 2000)
     guess = int(input("Enter your first number: "))
@@ -157,11 +157,15 @@ def gate1_gate():
                 choice = input("You have ran out of hints, time to guess (G)")
             else: 
                 print("You have ran out of hints.")
-
-
-
-             
-
+        while (choice == "G"):
+            guess = int(input("Enter your guess: "))
+            if (guess < number):
+               print("Your guess is too low.")
+               choice = input("Do you want to guess (G) or have a hint (H).")
+            else: 
+               print("Your guess is too high.") 
+               choice = input("Do you want to guess (G) or have a hint (H).")
+    print("You guessed the correct number.")
  #Main
 town_r = 0
 town_c = 1 
