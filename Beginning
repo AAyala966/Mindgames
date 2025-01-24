@@ -72,100 +72,75 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
         inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
         sky_map(akey) 
 
-def gate1():
-    print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
-    number = random.randint(1000, 2000)
-    guess = int(input("Enter your first number: "))
-    while(guess != number):
-        print("Incorrect guess.")
-        choice = input("Do you want to guess (G) or have hint (H)?")
-        round = 0
-        while(choice == "H"):
-            if (number % 2 == 0 and round == 0):
-                print("The number is even.")
-                round += 1
-            elif (round == 0): 
-                print("The number is odd")
-                round += 1
-                choice == input("Do you want to guess (G) or have a hint(H)?")
-            elif (number % 3 == 0 and round == 1):
-                print("The number is divisible by 3.")
-                round += 1 
-            elif (round == 1): 
-                print("The number is not divisible by 3.")
-                round += 1 
-                choice == input("Do you want to guess (G) or have a hint (H)?")
-            elif (number % 5 == 0 and round == 3):
-                print("The number is divisible by 5.")
-                round += 1 
-            elif (round == 3): 
-                print("The number is not divisible by 5.")
-                round += 1
-                choice == input("Do you want to guess (G) or have a hint (H)?")
-            elif (number >= 1776 and round == 4):
-                print("The number is greater than the year the United States gained independence from Britain.")
-                round += 1 
-            elif (round == 4): 
-                print("The number is less than the year the United States gained independence from Britain.")
-                round += 1
-                choice == input("Do you want to guess (G) or have a hint (H)?")
-            elif (number <= 1500 and round == 5):
-                print("The number is less than the number 1500.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H)?")
-            elif (round == 5):
-                print("The number is greater than the year 1500.")
-                round += 1
-                choice == input("Do you want to guess (G) or have a hint (H)?")
-            elif (number <= 100*10 and round == 6):
-                print("The number is less than 100*10.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H)?") 
-            elif (round == 6):
-                print ("The number is greater than 100*10")
-                round += 1
-                choice = input("Do you want to guess (G) or have ahint (H)?")
-            elif (number % 10 != 0 and round == 7):
-                print("The number is not divisible by 10.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H)")
-            elif (round == 7):
-                print ("The number is divisible by 10.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H)?")
-            elif (number >= 1492 and number <= 1776 and round == 8):
-                print("The number is between the years Columbus reached the United States and when the United States declared independence.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H).")
-            elif (round == 8):
-                print ("The number is not between the yars Columbus reached the United States and when the United States declared independence.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H).")
-            elif (number >= 1914 and round == 9):
-                print("The number is greater than the first year of WW1.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H).")
-            elif (round == 9):
-                print("The number is less than the first year of WW1.")
-                round += 1
-                choice = input("Do you want to guess (G) or have a hint (H).")
-            elif (math.sqrt(number) - number > 0 and round == 10):
-                print("The number is a prime number.")
-                choice = input("You have ran out of hints, time to guess (G)")
-            elif (round == 10):
-                print("The number is not a prime number.")
-                choice = input("You have ran out of hints, time to guess (G)")
-            else: 
-                print("You have ran out of hints.")
-        while (choice == "G"):
-            guess = int(input("Enter your guess: "))
-            if (guess < number):
-               print("Your guess is too low.")
-               choice = input("Do you want to guess (G) or have a hint (H).")
-            else: 
-               print("Your guess is too high.") 
-               choice = input("Do you want to guess (G) or have a hint (H).")
-    print("You guessed the correct number.")
+import random
+import math 
+print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
+number = random.randint(1000, 2000)
+guess = int(input("Enter your first number: "))
+while(guess != number):
+    print("Incorrect guess.")
+    choice = input("Do you want to guess (G) or have hint (H)?")
+    hint_round = 0
+    while(choice == "H"):
+        if (hint_round >= 10): 
+            print("You have ran out of hints.")
+            break 
+        if (number % 2 == 0 and hint_round == 0):
+            print("The number is even.")
+        elif (hint_round == 0): 
+            print("The number is odd")
+        elif (number % 3 == 0 and hint_round == 1):
+            print("The number is divisible by 3.")
+        elif (hint_round == 1): 
+            print("The number is not divisible by 3.")
+        elif (number % 5 == 0 and hint_round == 2):
+            print("The number is divisible by 5.")
+        elif (hint_round == 2): 
+            print("The number is not divisible by 5.")
+        elif (number >= 1776 and hint_round == 3):
+            print("The number is greater than the year the United States gained independence from Britain.")
+        elif (hint_round == 3): 
+            print("The number is less than the year the United States gained independence from Britain.")
+        elif (number <= 1500 and hint_round == 4):
+            print("The number is less than the number 1500.")
+        elif (hint_round == 4):
+            print("The number is greater than the year 1500.")
+        elif (number <= 100*10 and hint_round == 5):
+            print("The number is less than 100*10.")
+        elif (hint_round == 5):
+            print ("The number is greater than 100*10")
+        elif (number % 10 != 0 and hint_round == 6):
+            print("The number is not divisible by 10.")
+        elif (hint_round == 6):
+            print ("The number is divisible by 10.")
+        elif (number >= 1492 and number <= 1776 and hint_round == 7):
+            print("The number is between the years Columbus reached the United States and when the United States declared independence.")
+        elif (hint_round == 7):
+            print ("The number is not between the yars Columbus reached the United States and when the United States declared independence.")
+        elif (number >= 1914 and hint_round == 8):
+            print("The number is greater than the first year of WW1.")
+        elif (hint_round == 8):
+            print("The number is less than the first year of WW1.")
+        elif (math.sqrt(number) - number > 0 and hint_round == 9):
+            print("The number is a prime number.")
+        elif (hint_round == 9):
+            print("The number is not a prime number.")
+
+        hint_round += 1 
+        if (hint_round <= 10):
+            choice = input("Do you want to guess (G) or have a hint (H)?")
+
+    while (choice == "G"):
+        guess = int(input("Enter your guess: "))
+        if (guess < number):
+            print("Your guess is too low.")
+            choice = input("Do you want to guess (G) or have a hint (H).")
+        elif (guess > number): 
+            print("Your guess is too high.") 
+            choice = input("Do you want to guess (G) or have a hint (H).")
+        else: 
+            print("You guessed the correct number.")
+            break
  #Main
 town_r = 0
 town_c = 1 
