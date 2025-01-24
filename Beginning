@@ -165,7 +165,7 @@ town_r = 0
 town_c = 1
 dream_r = 1
 dream_c = 1 
-while(dream_r != 0):
+#while(dream_r != 0):
     direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
     if (direction1 == "L"):
         dream_c -= 1
