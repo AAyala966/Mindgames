@@ -145,7 +145,7 @@ while(guess != number):
 town_r = 0
 town_c = 1 
 Intro()
-while(town_r != 2 and town_c != 0):
+while(town_r >= 2 and town_c <= 0):
     direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
     if (direction == "L"):
         town_c -= 1
