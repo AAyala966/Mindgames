@@ -1,10 +1,11 @@
+
 import random
 import math 
 def Intro():
-    print("Welcome to the game Mindgames. In this game you are trapped in your mind.")
+    print("Welcome to the game Mindgames.\n In this game you are trapped in your mind.\n")
     print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
-    print("You wake up in a place you have never seen. When you look around, the barren room has only the basics. A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
-    print("Walking outside of the room you realize you are in an Inn. Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
+    print("You wake up in a place you have never seen.\n When you look around, the barren room has only the basics: A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
+    print("Walking outside of the room you realize you are in an Inn.\n Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
     print("When you look around, you realize you're in a small town with a couple of buildings around you.")
     print("To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
 
@@ -51,7 +52,7 @@ def sky_map (aKey, row=1, column=1):
             row += 1
         position = sky_map[row][column]
         print("\nYou are now at The" , position, "\n")
-    gate1() 
+    game1() 
 
 def dream_map(move, row, column, akey, gkey, wkey, fkey):
     dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
@@ -72,59 +73,121 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
         inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
         sky_map(akey) 
 
-import random
-import math 
-print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
-number = random.randint(1000, 2000)
-guess = int(input("Enter your first number: "))
-while(guess != number):
-    print("Incorrect guess.")
-    choice = input("Do you want to guess (G) or have hint (H)?")
-    hint_round = 0
-    while(choice == "H"):
-        if (hint_round >= 10): 
-            print("You have ran out of hints.")
-            break 
-        if (number % 2 == 0 and hint_round == 0):
-            print("The number is even.")
-        elif (hint_round == 0): 
-            print("The number is odd")
-        elif (number % 3 == 0 and hint_round == 1):
-            print("The number is divisible by 3.")
-        elif (hint_round == 1): 
-            print("The number is not divisible by 3.")
-        elif (number % 5 == 0 and hint_round == 2):
-            print("The number is divisible by 5.")
-        elif (hint_round == 2): 
-            print("The number is not divisible by 5.")
-        elif (number >= 1776 and hint_round == 3):
-            print("The number is greater than the year the United States gained independence from Britain.")
-        elif (hint_round == 3): 
-            print("The number is less than the year the United States gained independence from Britain.")
-        elif (number <= 1500 and hint_round == 4):
-            print("The number is less than the number 1500.")
-        elif (hint_round == 4):
-            print("The number is greater than the year 1500.")
-        elif (number <= 100*10 and hint_round == 5):
-            print("The number is less than 100*10.")
-        elif (hint_round == 5):
-            print ("The number is greater than 100*10")
-        elif (number % 10 != 0 and hint_round == 6):
-            print("The number is not divisible by 10.")
-        elif (hint_round == 6):
-            print ("The number is divisible by 10.")
-        elif (number >= 1492 and number <= 1776 and hint_round == 7):
-            print("The number is between the years Columbus reached the United States and when the United States declared independence.")
-        elif (hint_round == 7):
-            print ("The number is not between the yars Columbus reached the United States and when the United States declared independence.")
-        elif (number >= 1914 and hint_round == 8):
-            print("The number is greater than the first year of WW1.")
-        elif (hint_round == 8):
-            print("The number is less than the first year of WW1.")
-        elif (math.sqrt(number) - number > 0 and hint_round == 9):
-            print("The number is a prime number.")
-        elif (hint_round == 9):
-            print("The number is not a prime number.")
+def game2(num):
+    print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.\n You can have one hint per anagram. Please input your answer in all lowercase letters.")
+    if(num == 1):
+        anagram = "dirty room"
+        print("The anagram you have to unscramble is: \"dormitory\"")
+        guess = input("Input your guess: ")
+        d = 0
+        while (guess != anagram and d == 0):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input(("Your guess is incorrect, guess again: "))
+            if (guess_hint == "h"):
+                print("This is the only hint: It is two words and it describes a room.")
+                d += 1
+        if (guess == anagram):
+            print("Your anagram is correct.")
+    if (num == 2):
+        anagram = "elegant man"
+        print("The anagram you have to unscramble is: \"a gentleman\"")
+        guess = input("Input your guess: ")
+        d = 0
+        while (guess != anagram):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input(("Your guess is incorrect, guess again: "))
+            if (guess_hint == "h"):
+                print("This is the only hint: Adjective for a gentleman + man")
+                d += 1
+        if (guess == anagram):
+            print("Your anagram is correct.")
+    if (num == 3):
+        anagram = "detect thieves"
+        print("The anagram you have to unscramble is: \"the detectives\"")
+        guess = input("Input your guess: ")
+        d = 0
+        while (guess != anagram):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input(("Your guess is incorrect, guess again: "))
+            if (guess_hint == "h"):
+                print("This is the only hint: It is two words and is what a detective can detect.")
+                d += 1
+        if (guess == anagram):
+            print("Your anagram is correct.")
+    if (num == 4): 
+        anagram = "twelve plus one"
+        print("The anagram you have to unscramble is: \"eleven plus two\"")
+        guess = input("Input your guess: ")
+        d = 0
+        while (guess != anagram):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input(("Your guess is incorrect, guess again: "))
+            if (guess_hint == "h"):
+                print("This is the only hint: It is three words and equals 11+2")
+                d += 1
+        if (guess == anagram):
+            print("Your anagram is correct.")
+        print("The anagram you have to unscramble is: \"eleven plus two\"")
+def game1():
+    print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
+    number = random.randint(1000, 2000)
+    guess = int(input("Enter your first number: "))
+    while(guess != number):
+        print("Incorrect guess.")
+        choice = input("Do you want to guess (G) or have hint (H)?")
+        hint_round = 0
+        while(choice == "H"):
+            if (hint_round >= 10): 
+                print("You have ran out of hints.")
+                break 
+            if (number % 2 == 0 and hint_round == 0):
+                print("The number is even.")
+            elif (hint_round == 0): 
+                print("The number is odd")
+            elif (number % 3 == 0 and hint_round == 1):
+                print("The number is divisible by 3.")
+            elif (hint_round == 1): 
+                print("The number is not divisible by 3.")
+            elif (number % 5 == 0 and hint_round == 2):
+                print("The number is divisible by 5.")
+            elif (hint_round == 2): 
+                print("The number is not divisible by 5.")
+            elif (number >= 1776 and hint_round == 3):
+                print("The number is greater than the year the United States gained independence from Britain.")
+            elif (hint_round == 3): 
+                print("The number is less than the year the United States gained independence from Britain.")
+            elif (number <= 1500 and hint_round == 4):
+                print("The number is less than the number 1500.")
+            elif (hint_round == 4):
+                print("The number is greater than the year 1500.")
+            elif (number <= 100*10 and hint_round == 5):
+                print("The number is less than 100*10.")
+            elif (hint_round == 5):
+                print ("The number is greater than 100*10")
+            elif (number % 10 != 0 and hint_round == 6):
+                print("The number is not divisible by 10.")
+            elif (hint_round == 6):
+                print ("The number is divisible by 10.")
+            elif (number >= 1492 and number <= 1776 and hint_round == 7):
+                print("The number is between the years Columbus reached the United States and when the United States declared independence.")
+            elif (hint_round == 7):
+                print ("The number is not between the yars Columbus reached the United States and when the United States declared independence.")
+            elif (number >= 1914 and hint_round == 8):
+                print("The number is greater than the first year of WW1.")
+            elif (hint_round == 8):
+                print("The number is less than the first year of WW1.")
+            elif (ifprime(number) and hint_round == 9):
+                print("The number is a prime number.")
+            elif (hint_round == 9):
+                print("The number is not a prime number.")
 
         hint_round += 1 
         if (hint_round <= 10):
@@ -141,6 +204,17 @@ while(guess != number):
         else: 
             print("You guessed the correct number.")
             break
+    
+    def ifprime(n):
+        if (number == 2 or number == 3):
+            return True
+        if (n % 2 == 0 or n < 2):
+            return False 
+        for i in range (3, int(n**0.5) + 1, 2):
+            if (n % i == 0):
+                return False 
+        return True 
+    
  #Main
 town_r = 0
 town_c = 1 
@@ -153,7 +227,7 @@ while(town_r >= 2 and town_c <= 0):
         town_c += 1
     elif (direction == "D"):
         town_r -= 1
-    else:
+    elif (direction == "U"): 
         town_r += 1
     town_movement(direction, town_r, town_c)
 man_conversation1()
@@ -166,13 +240,13 @@ town_c = 1
 dream_r = 1
 dream_c = 1 
 #while(dream_r != 0):
-    direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
-    if (direction1 == "L"):
-        dream_c -= 1
-    elif (direction1 == "R"):
-        dream_c += 1
-    elif (direction1 == "D"):
-        dream_r -= 1
-    else:
-        town_r += 1
+    #direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
+    #if (direction1 == "L"):
+        #dream_c -= 1
+    #elif (direction1 == "R"):
+        #dream_c += 1
+    #elif (direction1 == "D"):
+        #dream_r -= 1
+    #else:
+        #town_r += 1
     #dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
