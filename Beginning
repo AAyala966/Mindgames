@@ -1,22 +1,16 @@
-
 import random
 import math 
 def Intro():
-    print("Welcome to the game Mindgames.\n In this game you are trapped in your mind.\n")
-    print("To escape your mind, talk to the people around the town in order to discover the objective.\n")
+    print("Welcome to the game Mindgames.\n In this game you are trapped in your mind.\n\n To escape your mind, talk to the people around the town in order to discover the objective.\n")
     print("You wake up in a place you have never seen.\n When you look around, the barren room has only the basics: A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
     print("Walking outside of the room you realize you are in an Inn.\n Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
-    print("When you look around, you realize you're in a small town with a couple of buildings around you.")
-    print("To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
+    print("When you look around, you realize you're in a small town with a couple of buildings around you.\n To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
 
 def man_conversation1():
     print("Old Man: Welcome to the town of Grovertown. This town has been quite empty for the last 3 years and I seem to be the last one left here. Why are you here?")
-    print("\nYou: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?")
-    print("\nOld Man: If you really want to leave I can help you, but I'll need something from you.")
-    print("\nYou: And that is?")
-    print("\nOld Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
-    print("\nYou: I guess I can help you.")
-    print("\nOld Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
+    print("\nYou: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?\n\nOld Man: If you really want to leave I can help you, but I'll need something from you.")
+    print("\nYou: And that is?\n\nOld Man: I'll need four things. The first one is a feather, a sycamore seed, a shell, and a piece of volcanic rock.")
+    print("\nYou: I guess I can help you.\n\nOld Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
     print("\nThe old man gives you a key with a metal pendant in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
 
 def town_movement(move, row, column):
@@ -35,11 +29,68 @@ def town_movement(move, row, column):
     position = town_map[row][column]
     print("\nYou are now at The" , position, "\n")
 
-def sky_map (aKey, row=1, column=1):
+def fire_map(fkey, row=1, column=1):
+    fire_map =[['Nothing is here', 'A red gate with a big number 1 on it.', 'Nothing is here.']
+              ['A red gate with a big number 2 on it.', 'Main area.', 'A red gate with a big number 4 on it.']
+              ['Unavailable to go here', 'A red with a big number 3 on it.', 'Nothing is here']]
+    position = fire_map[row][column]
+    while(position != fire_map[1][0]):
+        move = input("What direction do you want to go?")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(fire_map[0] - 1)):
+            column += 1
+        elif(move == "D" and row > 0):
+            row += 1
+        elif(move == "U" and row < len(fire_map) - 1):
+            row += 1
+        position = water_map[row][column]
+        print("\nYou are now at" , position , "\n")
+    game1()
+    
+def water_map(wkey, row=1, column=1):
+    water_map =[['Nothing is here', 'A blue gate with a big number 3 on it.', 'Nothing is here.']
+              ['A blue gate with a big number 4 on it.', 'Main area.', 'A blue gate with a big number 1 on it']
+              ['Unavailable to go here', 'A blue with a big number 2 on it.', 'Nothing is here']]
+    position = water_map[row][column]
+    while(position != water_map[2][1]):
+        move = input("What direction do you want to go?")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(water_map[0] - 1)):
+            column += 1
+        elif(move == "D" and row > 0):
+            row += 1
+        elif(move == "U" and row < len(water_map) - 1):
+            row += 1
+        position = water_map[row][column]
+        print("\nYou are now at" , position, "\n")
+    game1() 
+    
+def ground_map(gkey, row=1, column=1):
+    ground_map =[['Nothing is here', 'A brown gate with a big number 4 on it.', 'Nothing is here.']
+              ['A brown gate with a big number 2 on it.', 'Main area.', 'A brown gate with a big number 3 on it']
+              ['Unavailable to go here', 'A brown with a big number 1 on it.', 'Nothing is here']]
+    position = ground_map[row][column]
+    while(position != ground_map[1][2]):
+        move = input("What direction do you want to go?")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(ground_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1 
+        elif(move == "U" and row < len(ground_map) - 1):
+            row += 1
+        position = ground_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game1()
+    
+def sky_map (akey, row=1, column=1):
     sky_map =[['Nothing is here', 'A white gate with a big number 3 on it.', 'Nothing is here.']
               ['A white gate with a big number 1 on it.', 'Main area.', 'A gate with a big number 2 on it']
               ['Unavailable to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
-    position = sky_map[1][1]
+    position = sky_map[row][column]
     while(position != sky_map[1][0]):
         move = input("What direction do you want to go?")
         if(move == "L" and column > 0):
@@ -71,7 +122,23 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
     print("\nYou are now at The" , position, "\n")
     if (position == dream_map[0][1] or position == dream_map[1][0] or position == dream_map[1][2] or position == dream_map[2][1] ):
         inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
-        sky_map(akey) 
+        if (inside == "N"):
+            return 
+        else: 
+            if (inside == "Y" and position == dream_map[0][1] and akey == 1):
+                sky_map(akey)
+            if (inside == "Y" and position == dream_map[1][2] and gkey == 1):
+                ground_map(gkey)
+            else:
+                print("This gate is locked. It seems like you need another key to access this place.")
+            if (inside == "Y" and position == dream_map[2][1] and wkey == 1):
+                water_map(wkey)
+            else:
+                print("This gate is locked. It seems like you need another key.")
+            if (inside == "Y" and position == dream_map[0][1] and fkey == 1):
+                fire_map(fkey)
+            else:
+                print("This gate is locked. It seems like you need another key to access this place.") 
 
 def game2(num):
     print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.\n You can have one hint per anagram. Please input your answer in all lowercase letters.")
