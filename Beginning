@@ -1,3 +1,4 @@
+
 import random
 import math 
 def Intro():
@@ -139,6 +140,22 @@ def dream_map(move, row, column, akey, gkey, wkey, fkey):
                 fire_map(fkey)
             else:
                 print("This gate is locked. It seems like you need another key to access this place.") 
+def game3(num):
+    print("This is the thrid puzzle game. In this game, you have to decode the numbers to make a word.\n You can have one hint per code. Please input your number in all lowercase.")
+    if (num == 1): 
+        answer = "oxygen"
+        print("The number you have to decode is: 15.24.25.7.5.14")
+        guess = input("What do you think the word is: ")
+        d = 0
+        while (answer != guess):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input("Your guess is incorrect, guess again: ")
+            if (guess_hint == "h"):
+                print("This is the only hint: It is the second most abundant element in the Earth's atmosphere.")
+                d += 1
+        print("Your answer is the correct word: oxygen.")
 
 def game2(num):
     print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.\n You can have one hint per anagram. Please input your answer in all lowercase letters.")
@@ -147,7 +164,7 @@ def game2(num):
         print("The anagram you have to unscramble is: \"dormitory\"")
         guess = input("Input your guess: ")
         d = 0
-        while (guess != anagram and d == 0):
+        while (guess != anagram):
             if (d == 0):
                 guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
             else: 
@@ -317,3 +334,4 @@ dream_c = 1
     #else:
         #town_r += 1
     #dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
+#akey -= 1 
