@@ -1,4 +1,3 @@
-
 import random
 import math 
 def Intro():
@@ -156,6 +155,48 @@ def game3(num):
                 print("This is the only hint: It is the second most abundant element in the Earth's atmosphere.")
                 d += 1
         print("Your answer is the correct word: oxygen.")
+    if (num == 2):
+        answer = "topsoil"
+        print("The number you have to decode is: 7.12.11.8.12.18.15")
+        guess = input("What do you think the word is: ")
+        d = 0
+        while (answer != guess):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else:
+                guess = input("Your guess is incorrect, guess agian: ")
+            if (guess_hint == "h"):
+                print("This is the only hint: It has the word 'soil' within the word.")
+                d += 1
+        print("Your answer is the correct word: topsoil.")
+    if (num == 3):
+        answer = "lagoon"
+        print("The number you have to decode is: 11.0.6.14.14.13")
+        guess = input("What do you think the word is: ")
+        d = 0
+        while (answer != guess):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input("Your guess is incorrect, guess again: ")
+            if (guess_hint == "h"):
+                print("This is the only hint: The word word relates to water, and it has two vowels. One vowel is repeated.")
+                d += 1
+        print("Your answer is the correct word: lagoon.")
+    if (num == 3):
+        answer = "blaze"
+        print("The number you have to decode is: 98.108.97.122.101")
+        guess = input("What do you think the word is: ")
+        d = 0
+        while (answer != guess):
+            if (d == 0):
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+            else: 
+                guess = input("Your guess is incorrect, guess again: ")
+            if (guess_hint == "h"):
+                print("This is the only hint: The word starts with a b and is a synonym of 'on fire.' ")
+                d += 1
+        print("Your answer is the correct word: blaze.")
 
 def game2(num):
     print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.\n You can have one hint per anagram. Please input your answer in all lowercase letters.")
@@ -323,15 +364,15 @@ town_r = 0
 town_c = 1
 dream_r = 1
 dream_c = 1 
-#while(dream_r != 0):
-    #direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
-    #if (direction1 == "L"):
-        #dream_c -= 1
-    #elif (direction1 == "R"):
-        #dream_c += 1
-    #elif (direction1 == "D"):
-        #dream_r -= 1
-    #else:
-        #town_r += 1
+while(dream_r != 0):
+    direction1 = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
+    if (direction1 == "L"):
+        dream_c -= 1
+    elif (direction1 == "R"):
+        dream_c += 1
+    elif (direction1 == "D"):
+        dream_r += 1
+    else:
+        town_r -= 1
     #dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
 #akey -= 1 
