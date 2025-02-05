@@ -47,6 +47,36 @@ def fire_map(fkey, row=1, column=1):
         position = water_map[row][column]
         print("\nYou are now at" , position , "\n")
     game1()
+    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it. Where do you want to go.")
+    position = fire_map[1][1]
+    while(position != fire_map[0][1]):
+        move = input("Which direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(fire_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(fire_map) - 1):
+            row += 1
+        position = fire_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game2()
+    print("You have completed puzzle 1 and 2 and you have now gone back to the place with 4 big doors in it.")
+    position = fire_map[1][1] 
+    while(position != fire_map[2][1]):
+        move = input("Which direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1 
+        elif(move == "R" and column < len(fire_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(fire_map) - 1): 
+            row += 1
+        position = fire_map[row][column]
+        print("\nYou are now at The", position, "n")
+    game3()
     
 def water_map(wkey, row=1, column=1):
     water_map =[['Nothing is here', 'A blue gate with a big number 3 on it.', 'Nothing is here.']
@@ -65,7 +95,37 @@ def water_map(wkey, row=1, column=1):
             row += 1
         position = water_map[row][column]
         print("\nYou are now at" , position, "\n")
-    game1() 
+    game1()
+    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it. Where do you want to go.")
+    position = water_map[1][1] 
+    while(position != water_map[1][2]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(water_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row <len(water_map) - 1):
+            row += 1
+        position = water_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game2()
+    print("You have completed puzzle 1 and 2 and you have now gone back to the place with 4 big doors in it.") 
+    position = water_map[0][0] 
+    while(position != water_map[0][1]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(water_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(water_map) - 1):
+            row += 1
+        position = water_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game3()
     
 def ground_map(gkey, row=1, column=1):
     ground_map =[['Nothing is here', 'A brown gate with a big number 4 on it.', 'Nothing is here.']
@@ -73,7 +133,7 @@ def ground_map(gkey, row=1, column=1):
               ['Unavailable to go here', 'A brown with a big number 1 on it.', 'Nothing is here']]
     position = ground_map[row][column]
     while(position != ground_map[1][2]):
-        move = input("What direction do you want to go?")
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
         if(move == "L" and column > 0):
             column -= 1
         elif(move == "R" and column < len(ground_map[0]) - 1):
@@ -85,14 +145,45 @@ def ground_map(gkey, row=1, column=1):
         position = ground_map[row][column]
         print("\nYou are now at The" , position, "\n")
     game1()
+    print("You have completed puzzle 1 and you have now gone back to the place with 4 big doors in it.")
+    position = ground_map[1][1]
+    while(position != ground_map[0][1]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(ground_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(ground_map) - 1):
+            row += 1
+        position = ground_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game2()
+    print("You have completed puzzles 1 and 2 and you have now gone back to the place with 4 big door in it.")
+    position = ground_map[1][1]
+    while(position != ground_map[2][1]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(ground_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(ground_map) - 1):
+            row += 1
+        position = ground_map[row][column]
+        print("\nYou are now at The" , position , "\n")
+    game3()
     
 def sky_map (akey, row=1, column=1):
+    print("You use your key and are able to go through the gate with a cloud on it. You enter another blue room filled with clouds. Around the room, there are 4 more gates each with a big number on it.")
     sky_map =[['Nothing is here', 'A white gate with a big number 3 on it.', 'Nothing is here.']
               ['A white gate with a big number 1 on it.', 'Main area.', 'A gate with a big number 2 on it']
-              ['Unavailable to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
+              ['Nothing to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
     position = sky_map[row][column]
     while(position != sky_map[1][0]):
-        move = input("What direction do you want to go?")
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
         if(move == "L" and column > 0):
             column -= 1
         elif(move == "R" and column < len(sky_map[0]) - 1):
@@ -103,40 +194,73 @@ def sky_map (akey, row=1, column=1):
             row += 1
         position = sky_map[row][column]
         print("\nYou are now at The" , position, "\n")
-    game1() 
+    game1()
+    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it.")
+    position = sky_map[1][1]
+    while(position != sky_map[1][2]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(sky_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1 
+        elif(move == "U" and row < len(sky_map) - 1):
+            row += 1
+        position = sky_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+    game2()
+    print("You have completed puzzle 1 and 2 and you have now gone back to the room with 4 big doors on it.")
+    position = sky_map[1][1] 
+    while(position != sky_map[0][1]):
+        move = input("What direction do you want to go? ('L' for left, 'R' for right, 'U' for up, 'D' for down)")
+        if(move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(sky_map[0]) - 1):
+            column += 1
+        elif(move == "R" and row > 0):
+            row -= 1
+        elif(move == "U" and row < len(sky_map) - 1):
+            row += 1
+        position = sky_map[row][column]
+        print("\nYou are now at The" , position, "\n") 
+        game3()
+
 
 def dream_map(move, row, column, akey, gkey, wkey, fkey):
     dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
                  ['Gate to fire place', 'Main area', 'Gate to water place'],
                  ['There is nothing here.', 'Gate to ground place' , 'There is nothing here.']]
-    position = dream_map[row][column]
-    if (move == "L" and column > 0):
-        column -= 1
-    elif(move == "R" and column < len(dream_map[0]) - 1):
-        column += 1
-    elif(move == "D" and row > 0):
-        row -= 1 
-    elif(move == "U" and row < len(dream_map) - 1):
-        row += 1
-    position = dream_map[row][column]
-    print("\nYou are now at The" , position, "\n")
-    if (position == dream_map[0][1] or position == dream_map[1][0] or position == dream_map[1][2] or position == dream_map[2][1] ):
-        inside = input("Do you want to go inside? ('Y' for yes, 'N' for no)")
-        if (inside == "N"):
-            return 
-        else: 
-            if (inside == "Y" and position == dream_map[0][1] and akey == 1):
+    finish = 0
+    while(finish != 1):
+        position = dream_map[row][column]
+        if (move == "L" and column > 0):
+            column -= 1
+        elif(move == "R" and column < len(dream_map[0]) - 1):
+            column += 1
+        elif(move == "D" and row > 0):
+            row -= 1 
+        elif(move == "U" and row < len(dream_map) - 1):
+            row += 1
+        position = dream_map[row][column]
+        print("\nYou are now at The" , position, "\n")
+        if (position == dream_map[0][1] or position == dream_map[1][0] or position == dream_map[1][2] or position == dream_map[2][1] ):
+            print("You are now at a gate and you try to unlock it.")
+            if (position == dream_map[0][1] and akey == 1):
                 sky_map(akey)
-            if (inside == "Y" and position == dream_map[1][2] and gkey == 1):
+                akey -= 1
+                gkey = 1
+            elif (position == dream_map[1][2] and gkey == 1):
                 ground_map(gkey)
-            else:
-                print("This gate is locked. It seems like you need another key to access this place.")
-            if (inside == "Y" and position == dream_map[2][1] and wkey == 1):
+                gkey -= 1
+                wkey += 1
+            elif (position == dream_map[2][1] and wkey == 1):
                 water_map(wkey)
-            else:
-                print("This gate is locked. It seems like you need another key.")
-            if (inside == "Y" and position == dream_map[0][1] and fkey == 1):
+                wkey -= 1
+                fkey += 1
+            elif (position == dream_map[0][1] and fkey == 1):
                 fire_map(fkey)
+                finish = 1
             else:
                 print("This gate is locked. It seems like you need another key to access this place.") 
 def game3(num):
@@ -344,7 +468,7 @@ def game1():
 town_r = 0
 town_c = 1 
 Intro()
-while(town_r >= 2 and town_c <= 0):
+while(town_r == 0 or town_r == 1 or town_c == 1 or town_c == 2):
     direction = input("Where do you want to go? (Press 'L' for left, 'R' for right, 'U' for Up, and 'D' for Down)\n")
     if (direction == "L"):
         town_c -= 1
@@ -357,9 +481,6 @@ while(town_r >= 2 and town_c <= 0):
     town_movement(direction, town_r, town_c)
 man_conversation1()
 air_key1 = 1 
-ground_key1 = 0
-water_key1 = 0
-fire_key1 = 0
 town_r = 0
 town_c = 1
 dream_r = 1
@@ -374,5 +495,4 @@ while(dream_r != 0):
         dream_r += 1
     else:
         town_r -= 1
-    #dream_map(direction1, dream_r, dream_c, air_key1, ground_key1, water_key1, fire_key1)
-#akey -= 1 
+    dream_map(direction1, dream_r, dream_c, air_key1)
