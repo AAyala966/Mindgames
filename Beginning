@@ -574,3 +574,85 @@ while(town_r == 0 or town_r == 1 or town_c == 1 or town_c == 2):
         town_r += 1
     town_movement(direction, town_r, town_c)
 man_conversation2() 
+
+
+class Character():
+    def _init_(self, attacklvl, speed, defense, crit_d):
+        self.attacklvl = attacklvl
+        self.speed = speed
+        self.defense = defense 
+        self.crit_d = crit_d
+        self.health = 10 
+        self.maxhealth = 10
+        self.money = 0
+        self.potions = 0
+        self.potionsused = 0
+    
+    def _repr_(self):
+        print("These are your current stats:\nHealth: {health}\n Crit damange: {crit_d}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.crit_d, defense = self.defense, speed = self.speed, attack = self.attacklvl))
+        print("You have {money} money, and {potions} potions.".format(money = self.money, potions = self.potions))
+    
+    def usepotion(self):
+        if (self.potions > 0):
+            if (self.health == self.maxhealth):
+                answer = input("You are at max health, using a potion will not have any affect. Do you still want to use a potion? 'y' for yes, 'n' for no").lower()
+                match answer: 
+                    case 'y': 
+                        self.useapotion()
+                        self.potions -= 1
+                        self.potionsused += 1
+                        return True 
+                    case 'n': 
+                        return False 
+            else:
+                answer = input("You can use a potion, do you want to use one? 'y' for yes, 'n' for no.").lower()
+                match answer:
+                    case 'y':
+                        self.useapotion()
+                        self.potions -= 1
+                        self.potionsused += 1
+                        return True
+                    case 'n': 
+                        return False
+        else: 
+            print("You do not have a potion to use.") 
+
+    def useapotion(self):
+        self.health += random.randint(1,5)
+        if (self.health >= self.maxhealth):
+            self.health = self.maxhealth
+        print("Your health status is now {health}.".format(health = self.health)) 
+    
+    def attack(self, boss): 
+        ifdodge = self.dodge()
+        if(ifdodge): 
+            print("The boss was able to dodge your attack. You did not deal any damage")
+        else: 
+            crit = self.crit()
+            if(crit):
+                (boss.health() - random.randint(20, 30))
+            else: 
+                (boss.health() - random.randint(1, 20))
+        print("The bosses health is now {health}.".format(health = boss.health()))
+
+    def dodge(self):
+        if(random.randint(1, 100) < self.speed*4):
+            return True
+        else: 
+            return False
+    
+    def crit(self):
+        chance = random.randint(1,10) * self.crit_d
+        if(chance < 40):
+            print("You were not able to land critical damage.")
+            return False
+        if(chance >= 40):
+            print("You were able to land a critical strike.")
+            return True
+
+    def losehealth(self):
+        #Can be a random int subtracting from the mc health. Or can be a predetermined amount like 2. 
+        print("needs to be finished")
+class Boss():
+    print("Needs to be finished")
+
