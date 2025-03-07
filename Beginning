@@ -17,332 +17,222 @@ def man_conversation2():
     print("Old Man: Welcome back. I assume you have collected all of the keys?")
     print("\nYou: I have, although ")
 
-def town_movement(move, row, column):
-    town_map = [['Tavern. A dark building with a wide door. You try to open the door, but it is locked. Down is the Blacksmith, and right is the Inn.',' Grovertown Inn. A one-bedroom building with a sign over it. This is where you woke up. To the left is the Tavern, to the right is the Market, and down is a Street.','Market. An empty yet colorful place. All street vendor stalls are empty. To the left is the Inn, and down is the Townhall.'],
-            ['Blacksmith. A smaller building with large barn doors that are closed. To the right is the main street, and down is a smaller house.',' Street. A cobblestone road through the middle of town. Up is the inn, Left is the Blacksmith, right is the Townhall, and Down is the street.','Townhall. It is the biggest building in the town, however, the door is also locked. Up is the Market, left is the street, and down is a small house.'],
-            ['House of an old man. You knock on the front door and hear a voice yell from inside, "Come inside." You walk inside where you see a man with grey hair sitting on a couch.',' Street. A continuation of the main street. Up is the street, left is a small house, and right is another small house.','Smaller house. You try knocking on the door but it is locked.']]
-    position = town_map[row][column]
-    if(move == "L" and column > 0):
-        column -= 1
-    elif(move == "R" and column < len(town_map[0]) - 1):
-        column += 1
-    elif(move == "D" and row > 0):
-        row -= 1 
-    elif(move == "U" and row < len(town_map) - 1):
-        row += 1
-    position = town_map[row][column]
-    print("\nYou are now at The" , position, "\n")
+def tavern(): 
+    print("You walk inside a dark building with a wide door. Although the door was open, it was locked.")
 
-def fire_map(fkey, row=1, column=1):
-    fire_map =[['Nothing is here', 'A red gate with a big number 1 on it.', 'Nothing is here.']
-              ['A red gate with a big number 2 on it.', 'Main area.', 'A red gate with a big number 4 on it.']
-              ['Unavailable to go here', 'A red with a big number 3 on it.', 'Nothing is here']]
-    position = fire_map[row][column]
-    while(position != fire_map[1][0]):
-        move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(fire_map[0] - 1)):
-            column += 1
-        elif(move == "D" and row > 0):
-            row += 1
-        elif(move == "U" and row < len(fire_map) - 1):
-            row += 1
-        position = water_map[row][column]
-        print("\nYou are now at" , position , "\n")
-    game1()
-    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it.")
-    position = fire_map[1][1]
-    while(position != fire_map[0][1]):
-        move = input("Which direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(fire_map[0]) - 1):
-            column += 1
-        elif(move == "D" and row > 0):
-            row -= 1
-        elif(move == "U" and row < len(fire_map) - 1):
-            row += 1
-        position = fire_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game2()
-    print("You have completed puzzle 1 and 2 and you have now gone back to the place with 4 big doors in it.")
-    position = fire_map[1][1] 
-    while(position != fire_map[2][1]):
-        move = input("Which direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1 
-        elif(move == "R" and column < len(fire_map[0]) - 1):
-            column += 1
-        elif(move == "D" and row > 0):
-            row -= 1
-        elif(move == "U" and row < len(fire_map) - 1): 
-            row += 1
-        position = fire_map[row][column]
-        print("\nYou are now at The", position, "n")
-    game3()
-    
-def water_map(wkey, row=1, column=1):
-    water_map =[['Nothing is here', 'A blue gate with a big number 3 on it.', 'Nothing is here.']
-              ['A blue gate with a big number 4 on it.', 'Main area.', 'A blue gate with a big number 1 on it']
-              ['Unavailable to go here', 'A blue with a big number 2 on it.', 'Nothing is here']]
-    position = water_map[row][column]
-    while(position != water_map[2][1]):
-        move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(water_map[0] - 1)):
-            column += 1
-        elif(move == "D" and row > 0):
-            row += 1
-        elif(move == "U" and row < len(water_map) - 1):
-            row += 1
-        position = water_map[row][column]
-        print("\nYou are now at" , position, "\n")
-    game1()
-    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it.")
-    position = water_map[1][1] 
-    while(position != water_map[1][2]):
-        move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(water_map[0]) - 1):
-            column += 1
-        elif(move == "D" and row > 0):
-            row -= 1
-        elif(move == "U" and row <len(water_map) - 1):
-            row += 1
-        position = water_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game2()
-    print("You have completed puzzle 1 and 2 and you have now gone back to the place with 4 big doors in it.") 
-    position = water_map[0][0] 
-    while(position != water_map[0][1]):
-        move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-        if(move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(water_map[0]) - 1):
-            column += 1
-        elif(move == "D" and row > 0):
-            row -= 1
-        elif(move == "U" and row < len(water_map) - 1):
-            row += 1
-        position = water_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game3()
-    
-def ground_map(gkey, row=1, column=1):
-    ground_map =[['Nothing is here', 'A brown gate with a big number 4 on it.', 'Nothing is here.']
-              ['A brown gate with a big number 2 on it.', 'Main area.', 'A brown gate with a big number 3 on it']
-              ['Unavailable to go here', 'A brown with a big number 1 on it.', 'Nothing is here']]
-    position = ground_map[row][column]
-    while(position != ground_map[1][2]):
-        try: 
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(ground_map[0]) - 1):
-                column += 1
-            elif(move == "D" and row > 0):
-                row -= 1 
-            elif(move == "U" and row < len(ground_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = ground_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game1()
-    print("You have completed puzzle 1 and you have now gone back to the place with 4 big doors in it.")
-    position = ground_map[1][1]
-    while(position != ground_map[0][1]):
-        try:
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(ground_map[0]) - 1):
-               column += 1
-            elif(move == "D" and row > 0):
-                row -= 1
-            elif(move == "U" and row < len(ground_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = ground_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game2()
-    print("You have completed puzzles 1 and 2 and you have now gone back to the place with 4 big doors in it.")
-    position = ground_map[1][1]
-    while(position != ground_map[2][1]):
-        try: 
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(ground_map[0]) - 1):
-                column += 1
-            elif(move == "D" and row > 0):
-                row -= 1
-            elif(move == "U" and row < len(ground_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = ground_map[row][column]
-        print("\nYou are now at The" , position , "\n")
-    game3()
-    print("You have completed all the puzzles and you have now gone back to the place with 4 big doors in it. What could the last door be?")
-    position = ground_map[1][1]
-    while(position != ground_map[0][1]):
-        try:
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(ground_map[0]) - 1):
-                column += 1
-            elif(move == "D" and row > 0):
-                row -= 1
-            elif(move == "U" and row < len(ground_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = ground_map[row][column]
-        print("\nYou are now at The", position, "\n")
-    gate4()
-    
-def sky_map (akey, row=1, column=1):
-    print("You use your key and are able to go through the gate with a cloud on it. You enter another blue room filled with clouds. Around the room, there are 4 more gates each with a big number on it.")
-    sky_map =[['Nothing is here', 'A white gate with a big number 3 on it.', 'Nothing is here.']
-              ['A white gate with a big number 1 on it.', 'Main area.', 'A gate with a big number 2 on it']
-              ['Nothing to go here', 'Gate with a big number 4 on it.', 'Nothing is here']]
-    position = sky_map[row][column]
-    while(position != sky_map[1][0]):
-        try: 
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(sky_map[0]) - 1):
-                column += 1
-            elif(move == "D" and row > 0):
-                row -= 1 
-            elif(move == "U" and row < len(sky_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = sky_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game1()
-    print("You have completed puzzle 1 and you have now gone back to the room with 4 big doors on it.")
-    position = sky_map[1][1]
-    while(position != sky_map[1][2]):
-        try: 
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper()
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(sky_map[0]) - 1):
-                column += 1
-            elif(move == "D" and row > 0):
-                row -= 1 
-            elif(move == "U" and row < len(sky_map) - 1):
-                row += 1
-        except ValueError:
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = sky_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-    game2()
-    print("You have completed puzzle 1 and 2 and you have now gone back to the room with 4 big doors in it.")
-    position = sky_map[1][1] 
-    while(position != sky_map[0][1]):
-        try: 
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(sky_map[0]) - 1):
-                column += 1
-            elif(move == "R" and row > 0):
-                row -= 1
-            elif(move == "U" and row < len(sky_map) - 1):
-                row += 1
-        except ValueError: 
-            print("Input a valid letter.")
-            input("Press enter to continue.")
-        position = sky_map[row][column]
-        print("\nYou are now at The" , position, "\n") 
-    game3()
-    print("You have completed the last puzzle, and have now gone back to the room with 4 big doors in it. What could the last door be?")
-    position = sky_map[0][1]
-    while(position != sky_map[2][1]):
-        try:
-            move = input("What direction do you want to go? ('l' for left, 'r' for right, 'u' for up, 'd' for down)").upper
-            if(move == "L" and column > 0):
-                column -= 1
-            elif(move == "R" and column < len(sky_map[0]) - 1):
-                column += 1
-            elif(move == "R" and row > 0):
-                row -= 1
-            elif(move == "U" and row <len(sky_map) - 1):
-                row += 1
-        except ValueError: 
-            print("Input a valid letter")
-            input("Press enter to continue.")
-        position = sky_map[row][column]
-        print("\nYou are now at The" , position, "\n") 
-    gate4()
+def inn(): 
+    print("You head back to the building where you first woke up. There is nothing to do here but sleep.")
+    answer = input("Do you want to go to sleep? 'y' for yes, 'n' for no.")
+    match answer:
+        case 'y':
+            dream_map()
+        case 'n':
+            return False
+        
+def blacksmith():
+    print("You try to enter the small wooden building with a sign over the door saying 'Blacksmith,' but the door is locked.")
+    input = input("Press enter to continue.")
 
+def townhall():
+    print("You enter the main building of the town where a man sits greeting you. To the left of the man, there is a board with messages and signs involving the town.")
+    input = input("Press enter to continue.")
 
-def dream_map(move, row, column, akey, gkey=0, wkey=0, fkey=0):
-    dream_map = [['There is nothing here.', 'A white gate with a cloud engraved in it.', 'There is nothing here.'],
-                 ['Gate to fire place', 'Main area', 'Gate to water place'],
-                 ['There is nothing here.', 'Gate to ground place' , 'There is nothing here.']]
-    finish = 0
-    while(finish != 1):
-        position = dream_map[row][column]
-        if (move == "L" and column > 0):
-            column -= 1
-        elif(move == "R" and column < len(dream_map[0]) - 1):
-            column += 1
-        elif(move == "D" and row > 0):
-            row -= 1 
-        elif(move == "U" and row < len(dream_map) - 1):
-            row += 1
-        position = dream_map[row][column]
-        print("\nYou are now at The" , position, "\n")
-        if (position == dream_map[0][1] or position == dream_map[1][0] or position == dream_map[1][2] or position == dream_map[2][1] ):
-            print("You are now at a gate and you try to unlock it.")
-            if (position == dream_map[0][1] and akey == 1):
-                sky_map(akey)
-                akey = 0
-                gkey = 1
-            elif (position == dream_map[1][2] and gkey == 1):
-                ground_map(gkey)
-                gkey = 0
-                wkey = 1
-            elif (position == dream_map[2][1] and wkey == 1):
-                water_map(wkey)
-                wkey = 0
-                fkey = 1
-            elif (position == dream_map[0][1] and fkey == 1):
-                fire_map(fkey)
-                fkey = 0
-                finish = 1
-            else:
-                print("This gate is locked. It seems like you need another key to access this place.") 
+def market(): 
+    print("You enter the market where there are street vendors lining the street. Here you can spend your money on potions.")
+    Character.store()
+    input = input("Press enter to continue.") 
+
+def house2():
+    print("You walk to the house across the street from the first house. You try the door, but it is locked.")
+    input = input("Press enter to continue.")
+
+def fire_map():
+    countkeys = 1 
+    print("You enter the next world and it is bright red with flames and steam rising from the floor. Like the other worlds, there are 4 gates around you.")
+    try: 
+        while(countkeys < 5):
+            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            match direction: 
+                case 1: 
+                    if(countkeys == 1):
+                        game1()
+                        countkeys += 1
+                case 2: 
+                    if(countkeys == 4):
+                        game4()
+                        countkeys += 1
+                        break
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case 3: 
+                    if(countkeys == 3):
+                        game3()
+                        countkeys += 1 
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 4: 
+                    if(countkeys == 2):
+                        game2()
+                        countkeys += 1 
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+    except:
+        print("Please enter a valid number.")
+    print("You have completed all doors in this world and you are sent back to the previous world.")
+    return False 
+    
+def water_map():
+    countkeys = 1 
+    print("You enter the next world and the floor is made of water and there is a slight breeze. Around you there are 4 gates.")
+    try: 
+        while(countkeys < 5):
+            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            match direction: 
+                case 1: 
+                    if(countkeys == 3):
+                        game3() 
+                        countkeys += 1
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 2:
+                    if(countkeys == 1):
+                        game1()
+                        countkeys += 1
+                case 3:
+                    if(countkeys == 2):
+                        game2()
+                        countkeys += 1
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case 4: 
+                    if(countkeys == 4):
+                        game4()
+                        countkeys += 1
+                        break
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+    except: 
+        print("Please enter a valid number.")
+    print("You have completed all doors in this world and you are sent back to the previous world.")
+    return False 
+   
+    
+def ground_map():
+    countkeys = 1
+    print("You enter into the next world and the ground is dirt and the sky is dark. Like the other worlds, there are four doors around you.")
+    try: 
+        while(countkeys < 5):
+            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            match direction:
+                case 1:
+                    if(countkeys == 4):
+                        game4()
+                        countkeys += 1
+                        break
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 2:
+                    if(countkeys == 3):
+                        game3()
+                        countkeys += 1
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case 3:
+                    if(countkeys == 1):
+                        game1()
+                        countkeys += 1
+                case 4:
+                    if(countkeys == 2):
+                        game2()
+                        countkeys += 1
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+    except:
+        ("Please enter a valid number.")
+    print("You have completed all doors in this world and you are sent back to the previous world.")
+    return False 
+    
+def sky_map ():
+    print("You use your key and are able to go through the gate with a cloud on it. You enter another blue room filled with clouds. Around the room, there are 4 more gates.")
+    countkeys = 1
+    try: 
+        while (countkeys < 5):
+            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            match direction: 
+                case 1:
+                    if(countkeys == 3):
+                        game3()
+                        countkeys += 1
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case 2:
+                    if(countkeys == 2):
+                        game2()
+                        countkeys += 1
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 3:
+                    if(countkeys == 4):
+                        game4()
+                        countkeys += 1
+                        break
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 4: 
+                    if(countkeys == 1):
+                        game1()
+                        countkeys += 1 
+    except: 
+        print("Please enter a valid number.")
+
+def dream_map():
+    worldkeys = 1
+    while(worldkeys < 5):
+        try:   
+            direction1 = input("Where do you want to go? (1) for north, (2) for east, (3) for south, (4) for west?")
+            match direction1: 
+                case 1: 
+                    if(worldkeys == 1): 
+                        sky_map() 
+                        worldkeys += 1
+                case 2: 
+                    if(worldkeys == 3):
+                        water_map()
+                        worldkeys += 1
+                    else: 
+                        print("This door is still locked, you can try opening another door.")
+                case 3: 
+                    if(worldkeys == 2):
+                        ground_map()
+                        worldkeys += 1
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case 4: 
+                    if(worldkeys == 4):
+                        fire_map()
+                        worldkeys += 1
+                    else:
+                        print("This door is still locked you can try opening another door.")
+        except: 
+            print("Please enter a valid number.")
     return
+
+def game4(): 
+    Character.combat()
+
+    print("Fix this")
 def game3(num):
     print("This is the thrid puzzle game. In this game, you have to decode the numbers to make a word.\n You can have one hint per code. Please input your number in all lowercase.")
     if (num == 1): 
         answer = "oxygen"
         print("The number you have to decode is: 15.24.25.7.5.14")
-        guess = input("What do you think the word is: ")
+        guess = input("What do you think the word is: ").lower()
         d = 0
         while (answer != guess):
             if (d == 0):
-                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?").lower()
             else: 
-                guess = input("Your guess is incorrect, guess again: ")
+                guess = input("Your guess is incorrect, guess again: ").lower()
             if (guess_hint == "h"):
                 print("This is the only hint: It is the second most abundant element in the Earth's atmosphere.")
                 d += 1
@@ -350,13 +240,13 @@ def game3(num):
     if (num == 2):
         answer = "gravel"
         print("The number you have to decode is: 20.9.1.5.22.15")
-        guess = input("What do you think the word is: ")
+        guess = input("What do you think the word is: ").lower()
         d = 0
         while (answer != guess):
             if (d == 0):
-                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?").lower()
             else:
-                guess = input("Your guess is incorrect, guess agian: ")
+                guess = input("Your guess is incorrect, guess agian: ").lower()
             if (guess_hint == "h"):
                 print("This is the only hint: It is made up of a variety of large rocks and once truckload costs anywhere from 25-100 million rocks")
                 d += 1
@@ -364,27 +254,27 @@ def game3(num):
     if (num == 3):
         answer = "lagoon"
         print("The number you have to decode is: 11.0.6.14.14.13")
-        guess = input("What do you think the word is: ")
+        guess = input("What do you think the word is: ").lower()
         d = 0
         while (answer != guess):
             if (d == 0):
-                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?").lower()
             else: 
-                guess = input("Your guess is incorrect, guess again: ")
+                guess = input("Your guess is incorrect, guess again: ").lower()
             if (guess_hint == "h"):
-                print("This is the only hint: The word word relates to water, and it has two vowels. One vowel is repeated.")
+                print("This is the only hint: The word word relates to water, and it has two of the same vowel.")
                 d += 1
         print("Your answer is the correct word: lagoon.")
     if (num == 3):
         answer = "blaze"
         print("The number you have to decode is: 98.108.97.122.101")
-        guess = input("What do you think the word is: ")
+        guess = input("What do you think the word is: ").lower()
         d = 0
         while (answer != guess):
             if (d == 0):
-                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?")
+                guess_hint = input("Your guess is incorrect. Do you want a hint (h) or guess (g)?").lower()
             else: 
-                guess = input("Your guess is incorrect, guess again: ")
+                guess = input("Your guess is incorrect, guess again: ").lower()
             if (guess_hint == "h"):
                 print("This is the only hint: The word starts with a b and is a synonym of 'on fire.")
                 d += 1
@@ -406,7 +296,7 @@ def game2(num):
                 print("This is the only hint: It is two words and it describes a room.")
                 d += 1
         if (guess == anagram):
-            print("Your anagram is correct.")
+            print("Your anagram is correct, and you have completed game 2.")
     if (num == 2):
         anagram = "elegant man"
         print("The anagram you have to unscramble is: \"a gentleman\"")
@@ -421,7 +311,7 @@ def game2(num):
                 print("This is the only hint: Adjective for a gentleman + \"man\"")
                 d += 1
         if (guess == anagram):
-            print("Your anagram is correct.")
+            print("Your anagram is correct, and you have completed game 2.")
     if (num == 3):
         anagram = "detect thieves"
         print("The anagram you have to unscramble is: \"the detectives\"")
@@ -436,7 +326,7 @@ def game2(num):
                 print("This is the only hint: It is two words and is what a detective can detect.")
                 d += 1
         if (guess == anagram):
-            print("Your anagram is correct.")
+            print("Your anagram is correct, and you have completed game 2.")
     if (num == 4): 
         anagram = "twelve plus one"
         print("The anagram you have to unscramble is: \"eleven plus two\"")
@@ -451,7 +341,7 @@ def game2(num):
                 print("This is the only hint: It is three words and is one way to say '11+2'")
                 d += 1
             if (guess == anagram):
-                print("Your anagram is correct.")
+                print("Your anagram is correct, and you have completed game 2.")
 def game1():
     print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
     number = random.randint(1000, 2000)
@@ -507,7 +397,7 @@ def game1():
 
         hint_round += 1 
         if (hint_round <= 10):
-            choice = input("Do you want to guess (g) or have a hint (h)?")
+            choice = input("Do you want to guess (g) or have a hint (h)?").lower()
 
     while (choice == "g"):
         guess = int(input("Enter your guess: "))
@@ -518,7 +408,7 @@ def game1():
             print("Your guess is too high.") 
             choice = input("Do you want to guess (G) or have a hint (H).")
         else: 
-            print("You guessed the correct number.")
+            print("You guessed the correct number, and you have completed the first game.")
             break
     
     def ifprime(n):
@@ -529,52 +419,117 @@ def game1():
             for i in range (3, int(n**0.5) + 1, 2):
                 if (n % i == 0):
                     return False 
-    
- #Main
-town_r = 0
-town_c = 1 
-Intro()
-while(town_r == 0 or town_r == 1 or town_c == 1 or town_c == 2):
-    direction = input("Where do you want to go? ('l' for left, 'r' for right, 'u' for Up, and 'd' for Down)\n").lower()
-    if (direction == "l"):
-        town_c -= 1
-    elif (direction == "r"):
-        town_c += 1
-    elif (direction == "d"):
-        town_r -= 1
-    elif (direction == "u"): 
-        town_r += 1
-    town_movement(direction, town_r, town_c)
-man_conversation1()
-air_key1 = 1 
-town_r = 0
-town_c = 1
-dream_r = 1
-dream_c = 1 
-while(dream_r != 0): #fix this 
-    direction1 = input("Where do you want to go? ('l' for left, 'r' for right, 'u' for Up, and 'd' for Down)\n")
-    if (direction1 == "l"):
-        dream_c -= 1
-    elif (direction1 == "r"):
-        dream_c += 1
-    elif (direction1 == "d"):
-        dream_r += 1
-    elif(direction1 == "u"):
-        town_r -= 1
-    dream_map(direction1, dream_r, dream_c, air_key1)
-while(town_r == 0 or town_r == 1 or town_c == 1 or town_c == 2):
-    direction = input("Where do you want to go? ('l' for left, 'r' for right, 'u' for Up, and 'd' for Down)\n").lower()
-    if (direction == "l"):
-        town_c -= 1
-    elif (direction == "r"):
-        town_c += 1
-    elif (direction == "d"):
-        town_r -= 1
-    elif (direction == "u"): 
-        town_r += 1
-    town_movement(direction, town_r, town_c)
-man_conversation2() 
 
+def distribute_stat(): 
+    print("Before you start playing, you are able to distribute 10 stat points into 4 different charagories: attack, speed, defense, and crit chance.\n Unfortunately, you will be unable to change these once you distribute the points.\n These points will determine how your battles go.")
+    totalstatpts = 10 
+    attacklvl = 0
+    speed = 0
+    defense = 0 
+    critchance = 0
+    count = 0
+    while (count != 1):
+        try: 
+            attacklvl = input("How many points do you want for attack?")
+            if(attacklvl > 10):
+                print("You only have 10 stat points to distribute, try again.")
+            if(attacklvl < 0):
+                print("You cannot have a negative attack level, try again.")
+            else:
+                totalstatpts -= attacklvl 
+                count += 1
+        except: 
+            print("Enter a valid number.")
+    while (count != 2):
+        print("You have {statpts} remaining.".format(statpts = totalstatpts))
+        try: 
+            speed = input("How many points do you want for speed?") 
+            if(speed > totalstatpts):
+                print("You only have {stat} points to distribute, try again.")
+            if(speed < 0):
+                print("You cannot have a negative speed level, try again.")
+            else: 
+                totalstatpts -= speed 
+                count += 1
+        except: 
+            print("Enter a valid number.") 
+    while (count != 3):
+        try: 
+            defense = input("How many points do you want for defense?")
+            if(defense > totalstatpts):
+                print("You only have {stat} points to distribute, try again.")
+            if(speed < 0):
+                print("You cannot have a negative defense, try again.")
+            else:
+                totalstatpts -= defense 
+                count += 1
+        except:
+            print("Enter a valid number.")
+    while (count != 4):
+        try: 
+            critchance = input("How many points do you want for your crit chance?")
+            if(critchance > totalstatpts):
+                print("You only have {stat} points to distribute, try again.")
+            if(critchance < 0):
+                print("You cannot have a negative crit chance, try again.")
+            else:
+                totalstatpts -= speed 
+                count += 1
+        except:
+            print("Enter a valid number.")
+    return(Character(attacklvl, speed, defense, critchance))
+     
+#Main
+distribute_stat() 
+Intro()
+count = 0
+while(count < 1):
+    try:
+        direction = input("There are multiple areas you can go in this town. Do you want to go to (1) the tavern, (2) the inn, (3) the market, (4) the blacksmith, (5) the townhall, (6) the first house, or (7) the second house?")
+        match direction: 
+            case 1: 
+                tavern()
+            case 2:
+                inn()
+            case 3:
+                market()
+            case 4: 
+                blacksmith()
+            case 5:
+                townhall()
+            case 6:
+                man_conversation1()
+                count += 1
+            case 7:
+                house2() 
+    except: 
+        print("Please enter a valid number.")
+
+dream_map()
+print("You have successfully completed all puzzles and defeated all the bosses. You now have all four things that the man requested.")
+count2 = 0 
+while(count < 1):
+    try:
+        direction = input("Now that you have all of the items, where do you want to go: (1) the tavern, (2) the inn, (3) the market, (4) the blacksmith, (5) the townhall, (6) the first house, or (7) the second house?")
+        match direction: 
+            case 1:
+                tavern()
+            case 2:
+                inn()
+            case 3:
+                market()
+            case 4:
+                blacksmith()
+            case 5:
+                townhall()
+            case 6:
+                man_conversation2()
+                count2 += 1
+            case 7:
+                house2()
+    except: 
+        print("Please enter a valid number.")
+print("You have successfully completed the game, thank you for playing.")
 
 class Character():
     def _init_(self, attacklvl, speed, defense, crit_d):
@@ -582,8 +537,8 @@ class Character():
         self.speed = speed
         self.defense = defense 
         self.crit_d = crit_d
-        self.health = 10 
-        self.maxhealth = 10
+        self.health = 100
+        self.maxhealth = 100
         self.money = 0
         self.potions = 0
         self.potionsused = 0
@@ -592,6 +547,24 @@ class Character():
         print("These are your current stats:\nHealth: {health}\n Crit damange: {crit_d}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.crit_d, defense = self.defense, speed = self.speed, attack = self.attacklvl))
         print("You have {money} money, and {potions} potions.".format(money = self.money, potions = self.potions))
     
+    def store(self): 
+        while True: 
+            try: 
+                tobuy = input("How many potions do you want to buy. Currently you have {potions}, and {money} dollars.".format(potions = self.potions, money = self.money ))    
+                if(tobuy == 0):
+                    print("The vendors thank you for visiting your shop and you return to the main square.")
+                    break
+                if(tobuy * 10 > self.money):
+                    print("You do not have enough money to buy this many potions, try again.")
+                    continue
+                else:
+                    print("You are successfully able to buy {amount} potions.".format(amount = tobuy))
+                    self.money -= tobuy * 10 
+                    self.potions += tobuy 
+                    return False
+            except: 
+                print("Please enter a valid number.")
+
     def usepotion(self):
         if (self.potions > 0):
             if (self.health == self.maxhealth):
@@ -623,17 +596,30 @@ class Character():
             self.health = self.maxhealth
         print("Your health status is now {health}.".format(health = self.health)) 
     
-    def attack(self, boss): 
+    def attackboss(self, boss): 
         ifdodge = self.dodge()
         if(ifdodge): 
             print("The boss was able to dodge your attack. You did not deal any damage")
+            return True
         else: 
             crit = self.crit()
             if(crit):
-                (boss.health() - random.randint(20, 30))
+                if(self.health >= 50):
+                    (Boss.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                    if (Boss.health <= 0):
+                        return False 
+                    else:
+                        return True
+                else:
+                    (Boss.losehealth(self.health * .75))
+                    if(Boss.health <= 0):
+                        return False 
+                    else:
+                        return True
             else: 
-                (boss.health() - random.randint(1, 20))
-        print("The bosses health is now {health}.".format(health = boss.health()))
+                (Boss.losehealth(10))
+                if(Boss.health <= 0):
+                    return False
 
     def dodge(self):
         if(random.randint(1, 100) < self.speed*4):
@@ -650,9 +636,96 @@ class Character():
             print("You were able to land a critical strike.")
             return True
 
-    def losehealth(self):
-        #Can be a random int subtracting from the mc health. Or can be a predetermined amount like 2. 
-        print("needs to be finished")
-class Boss():
-    print("Needs to be finished")
+    def losehealth(self, minus_health): 
+        health = self.health
+        if (health <= 0):
+            print("You have been defeated by the boss. You are able to retry the fight.")
+        else: 
+            health -= minus_health
+            print("You have been dealt damage. Your new health is {health}.".format(health = health))
+            self.health = health 
 
+    def combat(self):
+        crit = random.randint(1,7)
+        attack = random.randint(1,7)
+        dodge = random.randint(1,7)
+        defense = random.randint(1,7)
+        speed = random.randint(1,7)
+        boss = Boss(100, 100, crit, attack, dodge, defense, speed)
+        print("The boss has {crit} number, {attack} number, {dodge} number, {defense} number, and {speed} number.".format(crit = crit, attack = attack, dodge = dodge, defense = defense, speed = speed))
+        while True:
+            print("Your current stats are {healthpts}, and {potions} potions to use.".format(healthpts = self.health, potions = self.potions))
+            try: 
+                options = input("You have two options. Do you want to (1) attack the boss, or (2) use a potion to restore some health?")
+                match options: 
+                    case 1: 
+                        fight = self.attackboss(boss)
+                        print("The bosses health is now {health}.".format(health = Boss.health()))
+                        if(Boss.health() < 0):
+                            print("You have successfully beat the boss.")
+                            self.health = 100
+                            self.money += random.randint(10, 50) 
+                            print("Your health has gone back to 100. You also gained {money} dollars from the boss.".format(money = self.money))
+                        if(fight): 
+                            print("The boss is attacking you.")
+                            Boss.attackcharacter()
+                            if(self.health > 0):
+                                continue
+                            else:
+                                return False
+                        else: 
+                            print("Good job, you defeated the boss.")
+                            print("")
+                    case 2:
+                        self.usepotion()
+                        continue
+            except: 
+                print("Please eneter a valid number.")
+                continue 
+
+
+class Boss():
+    def _init_(self, health, maxhealth, crit, attack, dodge, defense, speed):
+            self.health = health
+            self.maxhealth = maxhealth 
+            self.critchance = crit
+            self.attack = attack 
+            self.dodgeattack = dodge 
+            self.defense = defense 
+            self.speed = speed 
+
+    def crit(self): 
+        if(random.randint(1,100) <= self.critchance * 5):
+            print("The boss landed a critical hit.")
+            return True
+        else:
+            return False
+        
+    def dodge(self):
+        if(random.randint(1, 100) < self.speed*4):
+            return True
+        else: 
+            return False
+
+    def attackcharacter(self): 
+        ifdodge = self.dodgeattack()
+        if(ifdodge): 
+            print("You were able to dodge the attack.")
+        else: 
+            crit = self.critchance()
+            if(crit):
+                if(self.health >= 50):
+                    (Character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                else: 
+                    (Character.losehealth(self.health * .75))
+            else: 
+                (Character.losehealth(10))
+        print("Your health is now {health}.".format(health = Character.health()))
+      
+    def losehealth(self, minus_health):
+        health = self.health
+        if(health <= 0):
+            print("You have defeated the boss. Good job.")
+        else:
+            health -= minus_health
+            print("The boss lost health. The bosses new health is {health}.".format(health = health))
