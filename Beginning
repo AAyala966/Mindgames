@@ -1,24 +1,258 @@
 import random
 import math 
+
+class Character():
+    def __init__(self, attacklvl, speed, defense, crit_d):
+        self.attacklvl = attacklvl
+        self.speed = speed
+        self.defense = defense 
+        self.crit_d = crit_d
+        self.health = 100
+        self.maxhealth = 100
+        self.money = 0
+        self.potions = 0
+        self.potionsused = 0
+    
+    def __repr__(self):
+        print("These are your current stats:\nHealth: {health}\n Crit damange: {crit_d}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.crit_d, defense = self.defense, speed = self.speed, attack = self.attacklvl))
+        print("You have {money} money, and {potions} potions.".format(money = self.money, potions = self.potions))
+    
+    def store(self): 
+        while True: 
+            try: 
+                tobuy = input("How many potions do you want to buy. Currently you have {potions}, and {money} dollars.".format(potions = self.potions, money = self.money ))    
+                if(tobuy == 0):
+                    print("The vendors thank you for visiting your shop and you return to the main square.")
+                    break
+                if(tobuy * 10 > self.money):
+                    print("You do not have enough money to buy this many potions, try again.")
+                    continue
+                else:
+                    print("You are successfully able to buy {amount} potions.".format(amount = tobuy))
+                    self.money -= tobuy * 10 
+                    self.potions += tobuy 
+                    break
+            except ValueError: 
+                print("Please enter a valid number.")
+
+    def usepotion(self):
+        if (self.potions > 0):
+            if (self.health == self.maxhealth):
+                answer = input("You are at max health, using a potion will not have any affect. Do you still want to use a potion? 'y' for yes, 'n' for no").lower()
+                match answer: 
+                    case 'y': 
+                        self.useapotion()
+                        self.potions -= 1
+                        self.potionsused += 1
+                        return True 
+                    case 'n': 
+                        return False 
+            else:
+                answer = input("You can use a potion, do you want to use one? 'y' for yes, 'n' for no.").lower()
+                match answer:
+                    case 'y':
+                        self.useapotion()
+                        self.potions -= 1
+                        self.potionsused += 1
+                        return True
+                    case 'n': 
+                        return False
+        else: 
+            print("You do not have a potion to use.") 
+
+    def useapotion(self):
+        self.health += random.randint(1,5)
+        if (self.health >= self.maxhealth):
+            self.health = self.maxhealth
+        print("Your health status is now {health}.".format(health = self.health)) 
+    
+    def attackboss(self, boss): 
+        if(self.dodge()): 
+            print("The boss was able to dodge your attack. You did not deal any damage")
+            return True
+        else: 
+            crit = self.crit()
+            if(crit):
+                if(self.health >= 50):
+                    (boss.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                    if (boss.health <= 0):
+                        return False 
+                    else:
+                        return True
+                else:
+                    (boss.losehealth(self.health * .75))
+                    if(boss.health <= 0):
+                        return False 
+                    else:
+                        return True
+            else: 
+                (boss.losehealth(10))
+                if(boss.health <= 0):
+                    return False
+
+    def dodge(self):
+        if(random.randint(1, 100) < self.speed*4):
+            return True
+        else: 
+            return False
+    
+    def crit(self):
+        chance = random.randint(1,10) * self.crit_d
+        if(chance < 40):
+            print("You were not able to land critical damage.")
+            return False
+        if(chance >= 40):
+            print("You were able to land a critical strike.")
+            return True
+
+    def losehealth(self, minus_health): 
+        health = self.health
+        if (health <= 0):
+            print("You have been defeated by the boss. You are able to retry the fight.")
+        else: 
+            health -= minus_health
+            print("You have been dealt damage. Your new health is {health}.".format(health = health))
+            self.health = health 
+
+    def combat(self):
+        crit = random.randint(1,7)
+        attack = random.randint(1,7)
+        dodge = random.randint(1,7)
+        defense = random.randint(1,7)
+        speed = random.randint(1,7)
+        boss = Boss(100, 100, crit, attack, dodge, defense, speed)
+        print("The boss has {crit} number, {attack} number, {dodge} number, {defense} number, and {speed} number.".format(crit = crit, attack = attack, dodge = dodge, defense = defense, speed = speed))
+        while True:
+            print("Your current stats are {healthpts}, and {potions} potions to use.".format(healthpts = self.health, potions = self.potions))
+            try: 
+                options = input("You have two options. Do you want to (1) attack the boss, or (2) use a potion to restore some health?")
+                match options: 
+                    case 1: 
+                        fight = self.attackboss(boss)
+                        print("The bosses health is now {health}.".format(health = Boss.health()))
+                        if(Boss.health() < 0):
+                            print("You have successfully beat the boss.")
+                            self.health = 100
+                            self.money += random.randint(10, 50) 
+                            print("Your health has gone back to 100. You also gained {money} dollars from the boss.".format(money = self.money))
+                        if(fight): 
+                            print("The boss is attacking you.")
+                            Boss.attackcharacter()
+                            if(self.health > 0):
+                                continue
+                            else:
+                                return False
+                        else: 
+                            print("Good job, you defeated the boss.")
+                            print("")
+                    case 2:
+                        self.usepotion()
+                        continue
+            except ValueError: 
+                print("Please eneter a valid number.")
+                continue 
+
+
+class Boss():
+    def __init__(self, health, maxhealth, crit, attack, dodge, defense, speed):
+            self.health = health
+            self.maxhealth = maxhealth 
+            self.critchance = crit
+            self.attack = attack 
+            self.dodgeattack = dodge 
+            self.defense = defense 
+            self.speed = speed 
+
+    def crit(self): 
+        if(random.randint(1,100) <= self.critchance * 5):
+            print("The boss landed a critical hit.")
+            return True
+        else:
+            return False
+        
+    def dodge(self):
+        if(random.randint(1, 100) < self.speed*4):
+            return True
+        else: 
+            return False
+
+    def attackcharacter(self): 
+        ifdodge = self.dodgeattack()
+        if(ifdodge): 
+            print("You were able to dodge the attack.")
+        else: 
+            crit = self.critchance()
+            if(crit):
+                if(self.health >= 50):
+                    (Character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                else: 
+                    (Character.losehealth(self.health * .75))
+            else: 
+                (Character.losehealth(10))
+        print("Your health is now {health}.".format(health = Character.health()))
+      
+    def losehealth(self, minus_health):
+        health = self.health
+        if(health <= 0):
+            print("You have defeated the boss. Good job.")
+        else:
+            health -= minus_health
+            print("The boss lost health. The bosses new health is {health}.".format(health = health))
+
+
 def Intro():
-    print("Welcome to the game Mindgames.\n In this game you are trapped in your mind.\n\n To escape your mind, talk to the people around the town in order to discover the objective.\n")
-    print("You wake up in a place you have never seen.\n When you look around, the barren room has only the basics: A bed, a window, and a wardrobe. To the right of you there seems to be a strange note with the words 'Come see me at my house.'")
-    print("Walking outside of the room you realize you are in an Inn.\n Walking outside of the building you see the sign 'Welcome to Grovertown Inn.'") 
-    print("When you look around, you realize you're in a small town with a couple of buildings around you.\n To the left there is a Tavern. To the right seems to be street vendors. To the south there is a street.")
+    print("\nWelcome to the game Mindgames.\nIn this game, you are trapped in your mind.\nTo escape your mind, talk to the people around the town in order to discover the objective.\n")
+    input("Press Enter to continue...")
+    print("\nYou wake up in a place you have never seen. When you look around, the barren room has only the basics: A bed, a window, and a wardrobe. To the right of you, there seems to be a strange note with the words 'Come see me at my house.'")
+    input("Press Enter to continue...")
+    print("\nWalking outside of the room, you realize you are in an Inn. You step outside the building and see the sign: 'Welcome to Grovertown Inn.' When you look around, you realize you're in a small town with a couple of buildings around you. To the left, there is a Tavern. To the right, you spot street vendors. To the south, there is a street.")
+    input("Press Enter to continue...\nWhat will you do next?")
 
 def man_conversation1():
-    print("Old Man: Welcome to the town of Grovertown. This town has been quite empty for the last 3 years and I seem to be the last one left here. Why are you here?")
-    print("\nYou: I don't really know why I am here, I just woke up in the Inn. Is there a way to get out?\n\nOld Man: If you really want to leave I can help you, but I'll need something from you.")
-    print("\nYou: And that is?\n\nOld Man: I'll need four things. The first one is a feather, then I need a sycamore seed, a shell, and a piece of volcanic rock.")
-    print("\nYou: I guess I can help you.\n\nOld Man: Then you'll need this key. Take it, you'll know what to do with it once you go to sleep.")
-    print("\nThe old man gives you a key with a metal pendant in the shape of a cloud in the middle. When you step outside of the Old Man's house, it has already become night. You decide to go back to the Inn where you fall asleep.")
+    print("\nYou walk towards the old man's house and knock on the door. He opens it and looks at you, eyes filled with curiosity.\nOld Man: 'Ah, you must be the one I've been waiting for. Welcome to Grovertown. This town has been quite empty for the last 3 years. I seem to be the last one left here. What brings you here?'")
+    input("Press Enter to respond...")
+    print("\nYou: 'I don't really know why I am here. I just woke up in the Inn. Is there a way to get out?'")
+    input("Press Enter to continue...")
+    print("\nOld Man: 'If you truly wish to leave, I can help you. But first, you'll need to gather some things for me.'")
+    input("Press Enter to continue...")
+    print("\nYou: 'And what exactly do you need?'")
+    input("Press Enter to continue...")
+    print("\nOld Man: 'I need four things: A feather, a sycamore seed, a shell, and a piece of volcanic rock.'")
+    input("Press Enter to continue...")
+    print("\nYou: 'I guess I can help you.'")
+    input("Press Enter to continue...")
+    print("\nOld Man: 'Good. Then take this key. It will help you on your journey. You'll know what to do with it once you go to sleep.'\nHe hands you a key with a metal pendant shaped like a cloud.")
+    input("Press Enter to continue...\nThe old man nods and smiles faintly. You step outside his house, and when you glance up at the sky, it has already turned night. You decide to head back to the Inn and rest for the night.")
+    input("Press Enter to continue...")
 
 def man_conversation2():
-    print("Old Man: Welcome back. I assume you have collected all of the keys?")
-    print("\nYou: I have, although ")
+    print("\nThe next day, you return to the old man's house. He looks at you, his expression unreadable.\nOld Man: 'Welcome back. I trust you've gathered all the keys?'")
+    input("Press Enter to respond...")
+    print("\nYou: 'I have... although I still have questions.'")
+    input("Press Enter to continue...")
+    print("\nOld Man: 'I understand. But remember, the path you're walking now is your own. The keys you’ve gathered will open the door to your escape. Trust in them.'")
+    input("Press Enter to continue...")
+    print("\nThe old man turns his gaze toward the door. It's time to move forward.\nYou feel a sense of purpose growing within you, but also an overwhelming weight of uncertainty.")
+    input("Press Enter to continue...")
 
 def tavern(): 
-    print("You walk inside a dark building with a wide door. Although the door was open, it was locked.")
+    print("\nYou approach the Tavern, a dark building with a heavy wooden door. Although the door is wide open, the air inside feels cold and unwelcoming. The faint sound of chatter can be heard, but it's eerily quiet.")
+    input("Press Enter to enter the tavern...")
+    print("\nYou step inside. The room is dimly lit by a few flickering candles. The floor creaks underfoot, and the air smells of stale beer and burning wood. You spot a few patrons sitting at the far end, their faces hidden in shadow. The barkeep is wiping down the counter with a rag.")
+    input("Press Enter to approach the bar...")
+    print("\nYou make your way to the bar, and the barkeep looks up at you with a knowing glance.\nBarkeep: 'Welcome. Haven't seen you around here before. What can I get for you?'")
+    input("Press Enter to respond...")
+    print("\nYou: 'Just wanted to look around. It's a bit quiet in here, isn't it?'")
+    input("Press Enter to continue...")
+    print("\nBarkeep: 'Aye, it's been quiet lately. Not much business after dark. But if you're lookin' for answers, the old man might be able to help you.'")
+    input("Press Enter to continue...")
+    print("\nYou: 'The old man? What do you mean?'")
+    input("Press Enter to continue...")
+    print("\nBarkeep: 'Ah, I see. You’ve met him, haven’t you? He’s been around here for years. Some say he’s the key to getting out of this place.'")
+    input("Press Enter to continue...")
+    print("\nYou nod slowly, the words sinking in. There’s something unsettling about this place, but you feel compelled to stay for a moment longer.")
+    input("Press Enter to leave the tavern...")
+    print("\nYou decide to leave the Tavern, your mind racing with new thoughts and questions.")
 
 def inn(): 
     print("You head back to the building where you first woke up. There is nothing to do here but sleep.")
@@ -51,7 +285,7 @@ def fire_map():
     print("You enter the next world and it is bright red with flames and steam rising from the floor. Like the other worlds, there are 4 gates around you.")
     try: 
         while(countkeys < 5):
-            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            direction = int(input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door"))
             match direction: 
                 case 1: 
                     if(countkeys == 1):
@@ -66,17 +300,17 @@ def fire_map():
                         print("This door is still locked, you can try opening another door.")
                 case 3: 
                     if(countkeys == 3):
-                        game3()
+                        game3(4)
                         countkeys += 1 
                     else: 
                         print("This door is still locked, you can try opening another door.")
                 case 4: 
                     if(countkeys == 2):
-                        game2()
+                        game2(4)
                         countkeys += 1 
                     else: 
                         print("This door is still locked, you can try opening another door.")
-    except:
+    except ValueError:
         print("Please enter a valid number.")
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
@@ -86,11 +320,11 @@ def water_map():
     print("You enter the next world and the floor is made of water and there is a slight breeze. Around you there are 4 gates.")
     try: 
         while(countkeys < 5):
-            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            direction = int(input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door"))
             match direction: 
                 case 1: 
                     if(countkeys == 3):
-                        game3() 
+                        game3(3) 
                         countkeys += 1
                     else: 
                         print("This door is still locked, you can try opening another door.")
@@ -100,7 +334,7 @@ def water_map():
                         countkeys += 1
                 case 3:
                     if(countkeys == 2):
-                        game2()
+                        game2(3)
                         countkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
@@ -111,7 +345,7 @@ def water_map():
                         break
                     else:
                         print("This door is still locked, you can try opening another door.")
-    except: 
+    except ValueError: 
         print("Please enter a valid number.")
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
@@ -122,7 +356,7 @@ def ground_map():
     print("You enter into the next world and the ground is dirt and the sky is dark. Like the other worlds, there are four doors around you.")
     try: 
         while(countkeys < 5):
-            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            direction = int(input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door"))
             match direction:
                 case 1:
                     if(countkeys == 4):
@@ -133,7 +367,7 @@ def ground_map():
                         print("This door is still locked, you can try opening another door.")
                 case 2:
                     if(countkeys == 3):
-                        game3()
+                        game3(2)
                         countkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
@@ -143,11 +377,11 @@ def ground_map():
                         countkeys += 1
                 case 4:
                     if(countkeys == 2):
-                        game2()
+                        game2(2)
                         countkeys += 1
                     else: 
                         print("This door is still locked, you can try opening another door.")
-    except:
+    except ValueError:
         ("Please enter a valid number.")
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
@@ -157,17 +391,17 @@ def sky_map ():
     countkeys = 1
     try: 
         while (countkeys < 5):
-            direction = input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door")
+            direction = int(input("Do you want to go to (1) the north door, (2) the east door, (3) the south door, or (4) the west door? "))
             match direction: 
                 case 1:
                     if(countkeys == 3):
-                        game3()
+                        game3(1)
                         countkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
                 case 2:
                     if(countkeys == 2):
-                        game2()
+                        game2(1)
                         countkeys += 1
                     else: 
                         print("This door is still locked, you can try opening another door.")
@@ -182,43 +416,55 @@ def sky_map ():
                     if(countkeys == 1):
                         game1()
                         countkeys += 1 
-    except: 
+    except ValueError: 
         print("Please enter a valid number.")
 
 def dream_map():
-    worldkeys = 1
-    while(worldkeys < 5):
-        try:   
-            direction1 = input("Where do you want to go? (1) for north, (2) for east, (3) for south, (4) for west?")
-            match direction1: 
-                case 1: 
-                    if(worldkeys == 1): 
-                        sky_map() 
-                        worldkeys += 1
-                case 2: 
-                    if(worldkeys == 3):
-                        water_map()
-                        worldkeys += 1
-                    else: 
+    worldkeys = 1  
+    print("You have entered the Dream World. There are four gates ahead of you. Choose wisely which door to open.")
+    try:
+        while(worldkeys < 5): 
+            direction1 = int(input("Where do you want to go? (1) for north, (2) for east, (3) for south, (4) for west: "))
+            match direction1:
+                case 1:
+                    if(worldkeys == 1):  
+                        print("You go north and enter the sky room...")
+                        sky_map()  
+                        worldkeys += 1  
+                    else:
                         print("This door is still locked, you can try opening another door.")
-                case 3: 
-                    if(worldkeys == 2):
-                        ground_map()
+                case 2:
+                    if(worldkeys == 3): 
+                        print("You go east and enter the water room...")
+                        water_map() 
                         worldkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
-                case 4: 
-                    if(worldkeys == 4):
-                        fire_map()
+                case 3:
+                    if(worldkeys == 2): 
+                        print("You go south and enter the ground room...")
+                        ground_map() 
                         worldkeys += 1
                     else:
-                        print("This door is still locked you can try opening another door.")
-        except: 
-            print("Please enter a valid number.")
-    return
+                        print("This door is still locked, you can try opening another door.")
+                case 4:
+                    if(worldkeys == 4): 
+                        print("You go west and enter the fire room...")
+                        fire_map()  
+                        worldkeys += 1
+                        break  
+                    else:
+                        print("This door is still locked, you can try opening another door.")
+                case _:
+                    print("Please enter a valid number between 1 and 4.")
+                    
+    except ValueError:
+        print("Invalid input! Please enter a valid number between 1 and 4.")
+    print("You have successfully completed all the puzzles and defeated all the bosses.")
+    print("You now have all four things that the man requested. Your journey is almost complete!")
 
 def game4(): 
-    Character.combat()
+    Character.combat(player)
 
     print("Fix this")
 def game3(num):
@@ -343,149 +589,160 @@ def game2(num):
             if (guess == anagram):
                 print("Your anagram is correct, and you have completed game 2.")
 def game1():
+    def ifprime(n):
+        if n == 2 or n == 3:
+            return True
+        if n % 2 == 0 or n < 2:
+            return False
+        for i in range(3, int(n**0.5) + 1, 2):
+            if n % i == 0:
+                return False
+        return True
     print("In this game you have to guess a number between 1000 and 2000. Each round you will be able to pick if you want a hint or if you want to guess a number.")
     number = random.randint(1000, 2000)
     guess = int(input("Enter your first number: "))
-    while(guess != number):
-        print("Incorrect guess.")
-        choice = input("Do you want to guess (g) or have hint (h)?").lower()
-        hint_round = 0
-        while(choice == "h"):
-            if (hint_round >= 10): 
-                print("You have ran out of hints.")
-                break 
-            if (number % 2 == 0 and hint_round == 0):
-                print("The number is even.")
-            elif (hint_round == 0): 
-                print("The number is odd")
-            elif (number % 3 == 0 and hint_round == 1):
-                print("The number is divisible by 3.")
-            elif (hint_round == 1): 
-                print("The number is not divisible by 3.")
-            elif (number % 5 == 0 and hint_round == 2):
-                print("The number is divisible by 5.")
-            elif (hint_round == 2): 
-                print("The number is not divisible by 5.")
-            elif (number >= 1776 and hint_round == 3):
-                print("The number is greater than the year the United States gained independence from Britain.")
-            elif (hint_round == 3): 
-                print("The number is less than the year the United States gained independence from Britain.")
-            elif (number <= 1500 and hint_round == 4):
-                print("The number is less than the number 1500.")
-            elif (hint_round == 4):
-                print("The number is greater than the year 1500.")
-            elif (number <= 100*10 and hint_round == 5):
-                print("The number is less than 100*10.")
-            elif (hint_round == 5):
-                print ("The number is greater than 100*10")
-            elif (number % 10 != 0 and hint_round == 6):
-                print("The number is not divisible by 10.")
-            elif (hint_round == 6):
-                print ("The number is divisible by 10.")
-            elif (number >= 1492 and number <= 1776 and hint_round == 7):
-                print("The number is between the years Columbus reached the United States and when the United States declared independence.")
-            elif (hint_round == 7):
-                print ("The number is not between the yars Columbus reached the United States and when the United States declared independence.")
-            elif (number >= 1914 and hint_round == 8):
-                print("The number is greater than the first year of WW1.")
-            elif (hint_round == 8):
-                print("The number is less than the first year of WW1.")
-            elif (ifprime(number) and hint_round == 9):
-                print("The number is a prime number.")
-            elif (hint_round == 9):
-                print("The number is not a prime number.")
+    hint_round = 0
 
-        hint_round += 1 
-        if (hint_round <= 10):
-            choice = input("Do you want to guess (g) or have a hint (h)?").lower()
+    while guess != number:
+        choice = input("Do you want to guess (g) or have a hint (h)? ").lower()
 
-    while (choice == "g"):
-        guess = int(input("Enter your guess: "))
-        if (guess < number):
-            print("Your guess is too low.")
-            choice = input("Do you want to guess (G) or have a hint (H).")
-        elif (guess > number): 
-            print("Your guess is too high.") 
-            choice = input("Do you want to guess (G) or have a hint (H).")
-        else: 
-            print("You guessed the correct number, and you have completed the first game.")
-            break
-    
-    def ifprime(n):
-        if (number == 2 or number == 3):
-            return True
-        if (n % 2 == 0 or n < 2):
-            return False 
-            for i in range (3, int(n**0.5) + 1, 2):
-                if (n % i == 0):
-                    return False 
+        while choice == "h":
+            if hint_round >= 10:
+                print("You have run out of hints.")
+                break  
+            if hint_round == 0:
+                if number % 2 == 0:
+                    print("The number is even.")
+                else:
+                    print("The number is odd.")
+            elif hint_round == 1:
+                if number % 3 == 0:
+                    print("The number is divisible by 3.")
+                else:
+                    print("The number is not divisible by 3.")
+            elif hint_round == 2:
+                if number % 5 == 0:
+                    print("The number is divisible by 5.")
+                else:
+                    print("The number is not divisible by 5.")
+            elif hint_round == 3:
+                if number >= 1776:
+                    print("The number is greater than the year the United States gained independence from Britain.")
+                else:
+                    print("The number is less than the year the United States gained independence from Britain.")
+            elif hint_round == 4:
+                if number <= 1500:
+                    print("The number is less than 1500.")
+                else:
+                    print("The number is greater than 1500.")
+            elif hint_round == 5:
+                if number <= 100 * 10:
+                    print("The number is less than 100 * 10.")
+                else:
+                    print("The number is greater than 100 * 10.")
+            elif hint_round == 6:
+                if number % 10 != 0:
+                    print("The number is not divisible by 10.")
+                else:
+                    print("The number is divisible by 10.")
+            elif hint_round == 7:
+                if 1492 <= number <= 1776:
+                    print("The number is between the years Columbus reached the United States and when the United States declared independence.")
+                else:
+                    print("The number is not between the years Columbus reached the United States and when the United States declared independence.")
+            elif hint_round == 8:
+                if number >= 1914:
+                    print("The number is greater than the first year of WW1.")
+                else:
+                    print("The number is less than the first year of WW1.")
+            elif hint_round == 9:
+                if ifprime(number):
+                    print("The number is a prime number.")
+                else:
+                    print("The number is not a prime number.")
+            
+            hint_round += 1
+            if hint_round < 10: 
+                choice = input("Do you want to guess (g) or have a hint (h)? ").lower()
+
+        if choice == "g":
+            guess = int(input("Enter your guess: "))
+            if guess < number:
+                print(f"Your guess of {guess} is too low. The correct number is greater than {guess}.")
+            elif guess > number:
+                print(f"Your guess of {guess} is too high. The correct number is less than {guess}.")
+            else:
+                print(f"Congratulations! You guessed the correct number: {guess}. You have completed the first game.")
+                break
 
 def distribute_stat(): 
-    print("Before you start playing, you are able to distribute 10 stat points into 4 different charagories: attack, speed, defense, and crit chance.\n Unfortunately, you will be unable to change these once you distribute the points.\n These points will determine how your battles go.")
+    print("Before you start playing, you are able to distribute 10 stat points into 4 different categories: attack, speed, defense, and crit chance.\nUnfortunately, you will be unable to change these once you distribute the points.\nThese points will determine how your battles go.")
     totalstatpts = 10 
     attacklvl = 0
     speed = 0
     defense = 0 
     critchance = 0
     count = 0
-    while (count != 1):
+    while (count < 1):  
         try: 
-            attacklvl = input("How many points do you want for attack?")
-            if(attacklvl > 10):
-                print("You only have 10 stat points to distribute, try again.")
-            if(attacklvl < 0):
+            attacklvl = int(input("How many points do you want for attack? "))
+            if (attacklvl > totalstatpts):
+                print("You only have {totalstatpts} stat points to distribute, try again.".format(totalstatpts = totalstatpts))
+            elif (attacklvl < 0):
                 print("You cannot have a negative attack level, try again.")
             else:
-                totalstatpts -= attacklvl 
+                totalstatpts -= attacklvl
                 count += 1
-        except: 
+        except ValueError: 
             print("Enter a valid number.")
-    while (count != 2):
-        print("You have {statpts} remaining.".format(statpts = totalstatpts))
+    while (count < 2):  
+        print("You have {totalstatpts} remaining.".format(totalstatpts = totalstatpts))
         try: 
-            speed = input("How many points do you want for speed?") 
-            if(speed > totalstatpts):
-                print("You only have {stat} points to distribute, try again.")
-            if(speed < 0):
+            speed = int(input("How many points do you want for speed? ")) 
+            if (speed > totalstatpts):
+                print("You only have {totalstatpts} points to distribute, try again.".format(totalstatpts = totalstatpts))
+            elif (speed < 0):
                 print("You cannot have a negative speed level, try again.")
             else: 
-                totalstatpts -= speed 
+                totalstatpts -= speed
                 count += 1
-        except: 
-            print("Enter a valid number.") 
-    while (count != 3):
+        except ValueError: 
+            print("Enter a valid number.")
+    while (count < 3):
+        print("You have {totalstatpts} remaining.".format(totalstatpts = totalstatpts))
         try: 
-            defense = input("How many points do you want for defense?")
-            if(defense > totalstatpts):
-                print("You only have {stat} points to distribute, try again.")
-            if(speed < 0):
+            defense = int(input("How many points do you want for defense? "))
+            if (defense > totalstatpts):
+                print("You only have {totalstatpts} points to distribute, try again.".format(totalstatpts = totalstatpts))
+            elif (defense < 0):
                 print("You cannot have a negative defense, try again.")
             else:
-                totalstatpts -= defense 
+                totalstatpts -= defense
                 count += 1
-        except:
+        except ValueError: 
             print("Enter a valid number.")
-    while (count != 4):
+    while (count < 4): 
+        print("You have {totalstatpts} remaining.".format(totalstatpts = totalstatpts))
         try: 
-            critchance = input("How many points do you want for your crit chance?")
-            if(critchance > totalstatpts):
-                print("You only have {stat} points to distribute, try again.")
-            if(critchance < 0):
+            critchance = int(input("How many points do you want for your crit chance? "))
+            if (critchance > totalstatpts):
+                print("You only have {totalstatpts} points to distribute, try again.".format(totalstatpts = totalstatpts))
+            elif (critchance < 0):
                 print("You cannot have a negative crit chance, try again.")
             else:
-                totalstatpts -= speed 
+                totalstatpts -= critchance
                 count += 1
-        except:
+        except ValueError: 
             print("Enter a valid number.")
-    return(Character(attacklvl, speed, defense, critchance))
+    return(Character(attacklvl, speed, defense, critchance)) 
      
 #Main
-distribute_stat() 
+player = distribute_stat() 
 Intro()
 count = 0
 while(count < 1):
     try:
-        direction = input("There are multiple areas you can go in this town. Do you want to go to (1) the tavern, (2) the inn, (3) the market, (4) the blacksmith, (5) the townhall, (6) the first house, or (7) the second house?")
+        direction = int(input("There are multiple areas you can go in this town. Do you want to go to (1) the tavern, (2) the inn, (3) the market, (4) the blacksmith, (5) the townhall, (6) the first house, or (7) the second house?"))
         match direction: 
             case 1: 
                 tavern()
@@ -502,7 +759,7 @@ while(count < 1):
                 count += 1
             case 7:
                 house2() 
-    except: 
+    except ValueError: 
         print("Please enter a valid number.")
 
 dream_map()
@@ -527,205 +784,6 @@ while(count < 1):
                 count2 += 1
             case 7:
                 house2()
-    except: 
+    except ValueError: 
         print("Please enter a valid number.")
 print("You have successfully completed the game, thank you for playing.")
-
-class Character():
-    def _init_(self, attacklvl, speed, defense, crit_d):
-        self.attacklvl = attacklvl
-        self.speed = speed
-        self.defense = defense 
-        self.crit_d = crit_d
-        self.health = 100
-        self.maxhealth = 100
-        self.money = 0
-        self.potions = 0
-        self.potionsused = 0
-    
-    def _repr_(self):
-        print("These are your current stats:\nHealth: {health}\n Crit damange: {crit_d}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.crit_d, defense = self.defense, speed = self.speed, attack = self.attacklvl))
-        print("You have {money} money, and {potions} potions.".format(money = self.money, potions = self.potions))
-    
-    def store(self): 
-        while True: 
-            try: 
-                tobuy = input("How many potions do you want to buy. Currently you have {potions}, and {money} dollars.".format(potions = self.potions, money = self.money ))    
-                if(tobuy == 0):
-                    print("The vendors thank you for visiting your shop and you return to the main square.")
-                    break
-                if(tobuy * 10 > self.money):
-                    print("You do not have enough money to buy this many potions, try again.")
-                    continue
-                else:
-                    print("You are successfully able to buy {amount} potions.".format(amount = tobuy))
-                    self.money -= tobuy * 10 
-                    self.potions += tobuy 
-                    return False
-            except: 
-                print("Please enter a valid number.")
-
-    def usepotion(self):
-        if (self.potions > 0):
-            if (self.health == self.maxhealth):
-                answer = input("You are at max health, using a potion will not have any affect. Do you still want to use a potion? 'y' for yes, 'n' for no").lower()
-                match answer: 
-                    case 'y': 
-                        self.useapotion()
-                        self.potions -= 1
-                        self.potionsused += 1
-                        return True 
-                    case 'n': 
-                        return False 
-            else:
-                answer = input("You can use a potion, do you want to use one? 'y' for yes, 'n' for no.").lower()
-                match answer:
-                    case 'y':
-                        self.useapotion()
-                        self.potions -= 1
-                        self.potionsused += 1
-                        return True
-                    case 'n': 
-                        return False
-        else: 
-            print("You do not have a potion to use.") 
-
-    def useapotion(self):
-        self.health += random.randint(1,5)
-        if (self.health >= self.maxhealth):
-            self.health = self.maxhealth
-        print("Your health status is now {health}.".format(health = self.health)) 
-    
-    def attackboss(self, boss): 
-        ifdodge = self.dodge()
-        if(ifdodge): 
-            print("The boss was able to dodge your attack. You did not deal any damage")
-            return True
-        else: 
-            crit = self.crit()
-            if(crit):
-                if(self.health >= 50):
-                    (Boss.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
-                    if (Boss.health <= 0):
-                        return False 
-                    else:
-                        return True
-                else:
-                    (Boss.losehealth(self.health * .75))
-                    if(Boss.health <= 0):
-                        return False 
-                    else:
-                        return True
-            else: 
-                (Boss.losehealth(10))
-                if(Boss.health <= 0):
-                    return False
-
-    def dodge(self):
-        if(random.randint(1, 100) < self.speed*4):
-            return True
-        else: 
-            return False
-    
-    def crit(self):
-        chance = random.randint(1,10) * self.crit_d
-        if(chance < 40):
-            print("You were not able to land critical damage.")
-            return False
-        if(chance >= 40):
-            print("You were able to land a critical strike.")
-            return True
-
-    def losehealth(self, minus_health): 
-        health = self.health
-        if (health <= 0):
-            print("You have been defeated by the boss. You are able to retry the fight.")
-        else: 
-            health -= minus_health
-            print("You have been dealt damage. Your new health is {health}.".format(health = health))
-            self.health = health 
-
-    def combat(self):
-        crit = random.randint(1,7)
-        attack = random.randint(1,7)
-        dodge = random.randint(1,7)
-        defense = random.randint(1,7)
-        speed = random.randint(1,7)
-        boss = Boss(100, 100, crit, attack, dodge, defense, speed)
-        print("The boss has {crit} number, {attack} number, {dodge} number, {defense} number, and {speed} number.".format(crit = crit, attack = attack, dodge = dodge, defense = defense, speed = speed))
-        while True:
-            print("Your current stats are {healthpts}, and {potions} potions to use.".format(healthpts = self.health, potions = self.potions))
-            try: 
-                options = input("You have two options. Do you want to (1) attack the boss, or (2) use a potion to restore some health?")
-                match options: 
-                    case 1: 
-                        fight = self.attackboss(boss)
-                        print("The bosses health is now {health}.".format(health = Boss.health()))
-                        if(Boss.health() < 0):
-                            print("You have successfully beat the boss.")
-                            self.health = 100
-                            self.money += random.randint(10, 50) 
-                            print("Your health has gone back to 100. You also gained {money} dollars from the boss.".format(money = self.money))
-                        if(fight): 
-                            print("The boss is attacking you.")
-                            Boss.attackcharacter()
-                            if(self.health > 0):
-                                continue
-                            else:
-                                return False
-                        else: 
-                            print("Good job, you defeated the boss.")
-                            print("")
-                    case 2:
-                        self.usepotion()
-                        continue
-            except: 
-                print("Please eneter a valid number.")
-                continue 
-
-
-class Boss():
-    def _init_(self, health, maxhealth, crit, attack, dodge, defense, speed):
-            self.health = health
-            self.maxhealth = maxhealth 
-            self.critchance = crit
-            self.attack = attack 
-            self.dodgeattack = dodge 
-            self.defense = defense 
-            self.speed = speed 
-
-    def crit(self): 
-        if(random.randint(1,100) <= self.critchance * 5):
-            print("The boss landed a critical hit.")
-            return True
-        else:
-            return False
-        
-    def dodge(self):
-        if(random.randint(1, 100) < self.speed*4):
-            return True
-        else: 
-            return False
-
-    def attackcharacter(self): 
-        ifdodge = self.dodgeattack()
-        if(ifdodge): 
-            print("You were able to dodge the attack.")
-        else: 
-            crit = self.critchance()
-            if(crit):
-                if(self.health >= 50):
-                    (Character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
-                else: 
-                    (Character.losehealth(self.health * .75))
-            else: 
-                (Character.losehealth(10))
-        print("Your health is now {health}.".format(health = Character.health()))
-      
-    def losehealth(self, minus_health):
-        health = self.health
-        if(health <= 0):
-            print("You have defeated the boss. Good job.")
-        else:
-            health -= minus_health
-            print("The boss lost health. The bosses new health is {health}.".format(health = health))
