@@ -153,7 +153,7 @@ class Boss():
             self.speed = speed 
 
     def crit(self): 
-        if(random.randint(1,100) <= self.critchance * 5):
+        if(random.randint(1,100) <= int(self.critchance * 5)):#Look at this 
             print("The boss landed a critical hit.")
             return True
         else:
