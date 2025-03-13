@@ -262,7 +262,7 @@ def townhall():
 
 def market(): 
     print("You enter the market where there are street vendors lining the street. Here you can spend your money on potions.")
-    Character.store()
+    character.store()
     input = input("Press enter to continue.") 
 
 def house2():
