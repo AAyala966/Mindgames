@@ -2,11 +2,10 @@ import random
 import math 
 
 class Character():
-    def __init__(self, attacklvl, speed, defense, crit_d):
+    def __init__(self, attacklvl, speed, critchance):
         self.attacklvl = attacklvl
         self.speed = speed
-        self.defense = defense 
-        self.crit_d = crit_d
+        self.critchance = critchance
         self.health = 100
         self.maxhealth = 100
         self.money = 0
@@ -14,7 +13,7 @@ class Character():
         self.potionsused = 0
     
     def __repr__(self):
-        print("These are your current stats:\nHealth: {health}\n Crit damange: {crit_d}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.crit_d, defense = self.defense, speed = self.speed, attack = self.attacklvl))
+        print("These are your current stats:\nHealth: {health}\n Crit chance: {critchance}\nDefense: {defense}\n Speed: {speed}\nAttack: {attack}\n".format(health = self.health, crit_d = self.critchance, speed = self.speed, attack = self.attacklvl))
         print("You have {money} money, and {potions} potions.".format(money = self.money, potions = self.potions))
     
     def store(self): 
@@ -118,10 +117,9 @@ class Character():
         crit = random.randint(1,7)
         attack = random.randint(1,7)
         dodge = random.randint(1,7)
-        defense = random.randint(1,7)
         speed = random.randint(1,7)
-        boss = Boss(100, 100, crit, attack, dodge, defense, speed)
-        print("The boss has {crit} number, {attack} number, {dodge} number, {defense} number, and {speed} number.".format(crit = crit, attack = attack, dodge = dodge, defense = defense, speed = speed))
+        boss = Boss(100, 100, crit, speed)
+        print(f"The boss has {crit} number, {attack} number, {dodge} number, and {speed} number.")
         while True:
             print("Your current stats are {healthpts}, and {potions} potions to use.".format(healthpts = self.health, potions = self.potions))
             try: 
@@ -148,13 +146,10 @@ class Character():
 
 
 class Boss():
-    def __init__(self, health, maxhealth, crit, attack, dodge, defense, speed):
+    def __init__(self, health, maxhealth, crit, speed):
             self.health = health
             self.maxhealth = maxhealth 
             self.critchance = crit
-            self.attack = attack 
-            self.dodgeattack = dodge 
-            self.defense = defense 
             self.speed = speed 
 
     def crit(self): 
@@ -274,7 +269,7 @@ def house2():
     print("You walk to the house across the street from the first house. You try the door, but it is locked.")
     input = input("Press enter to continue.")
 
-def fire_map():
+def fire_map(player):
     countkeys = 1 
     print("You enter the next world and it is bright red with flames and steam rising from the floor. Like the other worlds, there are 4 gates around you.")
     try: 
@@ -287,7 +282,7 @@ def fire_map():
                         countkeys += 1
                 case 2: 
                     if(countkeys == 4):
-                        game4()
+                        game4(player)
                         countkeys += 1
                         break
                     else:
@@ -309,7 +304,7 @@ def fire_map():
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
     
-def water_map():
+def water_map(player):
     countkeys = 1 
     print("You enter the next world and the floor is made of water and there is a slight breeze. Around you there are 4 gates.")
     try: 
@@ -334,7 +329,7 @@ def water_map():
                         print("This door is still locked, you can try opening another door.")
                 case 4: 
                     if(countkeys == 4):
-                        game4()
+                        game4(player)
                         countkeys += 1
                         break
                     else:
@@ -345,7 +340,7 @@ def water_map():
     return False 
    
     
-def ground_map():
+def ground_map(player):
     countkeys = 1
     print("You enter into the next world and the ground is dirt and the sky is dark. Like the other worlds, there are four doors around you.")
     try: 
@@ -354,7 +349,7 @@ def ground_map():
             match direction:
                 case 1:
                     if(countkeys == 4):
-                        game4()
+                        game4(player)
                         countkeys += 1
                         break
                     else: 
@@ -380,7 +375,7 @@ def ground_map():
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
     
-def sky_map ():
+def sky_map (player):
     print("You use your key and are able to go through the gate with a cloud on it. You enter another blue room filled with clouds. Around the room, there are 4 more gates.")
     countkeys = 1
     try: 
@@ -401,7 +396,7 @@ def sky_map ():
                         print("This door is still locked, you can try opening another door.")
                 case 3:
                     if(countkeys == 4):
-                        game4()
+                        game4(player)
                         countkeys += 1
                         break
                     else: 
@@ -413,7 +408,7 @@ def sky_map ():
     except ValueError: 
         print("Please enter a valid number.")
 
-def dream_map():
+def dream_map(player):
     worldkeys = 1  
     print("You have entered the Dream World. There are four gates ahead of you. Choose wisely which door to open.")
     try:
@@ -423,28 +418,28 @@ def dream_map():
                 case 1:
                     if(worldkeys == 1):  
                         print("You go north and enter the sky room...")
-                        sky_map()  
+                        sky_map(player)  
                         worldkeys += 1  
                     else:
                         print("This door is still locked, you can try opening another door.")
                 case 2:
                     if(worldkeys == 3): 
                         print("You go east and enter the water room...")
-                        water_map() 
+                        water_map(player) 
                         worldkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
                 case 3:
                     if(worldkeys == 2): 
                         print("You go south and enter the ground room...")
-                        ground_map() 
+                        ground_map(player) 
                         worldkeys += 1
                     else:
                         print("This door is still locked, you can try opening another door.")
                 case 4:
                     if(worldkeys == 4): 
                         print("You go west and enter the fire room...")
-                        fire_map()  
+                        fire_map(player)  
                         worldkeys += 1
                         break  
                     else:
@@ -459,8 +454,7 @@ def dream_map():
 
 def game4(player): 
     Character.combat(player)
-
-    print("Fix this")
+    
 def game3(num):
     print("This is the thrid puzzle game. In this game, you have to decode the numbers to make a word.\n You can have one hint per code. Please input your number in all lowercase.")
     if (num == 1): 
@@ -521,7 +515,8 @@ def game3(num):
         print("Your answer is the correct word: blaze.")
 
 def game2(num):
-    print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.\n You can have one hint per anagram. Please input your answer in all lowercase letters.")
+    print("This is the second puzzle game. In this game, you have to unscramble to clever anagram. This means that you have to unscramble a word or two to make another word or two.")
+    print("You can have one hint per anagram. Please input your answer in all lowercase letters.")
     if(num == 1):
         anagram = "dirty room"
         print("The anagram you have to unscramble is: \"dormitory\"")
@@ -548,7 +543,7 @@ def game2(num):
             else: 
                 guess = input(("Your guess is incorrect, guess again: ")).lower()
             if (guess_hint == "h"):
-                print("This is the only hint: Adjective for a gentleman + \"man\"")
+                print("This is the only hint: Two words and an adjective for a gentleman + \"man\"")
                 d += 1
         if (guess == anagram):
             print("Your anagram is correct, and you have completed game 2.")
@@ -732,7 +727,6 @@ def distribute_stat():
      
 #Main
 player = distribute_stat() 
-game4(player)
 Intro()
 count = 0
 while(count < 1):
@@ -757,7 +751,7 @@ while(count < 1):
     except ValueError: 
         print("Please enter a valid number.")
 
-dream_map()
+dream_map(player)
 print("You have successfully completed all puzzles and defeated all the bosses. You now have all four things that the man requested.")
 count2 = 0 
 while(count < 1):
