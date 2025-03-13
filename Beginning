@@ -125,29 +125,23 @@ class Character():
         while True:
             print("Your current stats are {healthpts}, and {potions} potions to use.".format(healthpts = self.health, potions = self.potions))
             try: 
-                options = input("You have two options. Do you want to (1) attack the boss, or (2) use a potion to restore some health?")
-                match options: 
-                    case 1: 
-                        fight = self.attackboss(boss)
-                        print("The bosses health is now {health}.".format(health = Boss.health()))
-                        if(Boss.health() < 0):
-                            print("You have successfully beat the boss.")
-                            self.health = 100
-                            self.money += random.randint(10, 50) 
-                            print("Your health has gone back to 100. You also gained {money} dollars from the boss.".format(money = self.money))
-                        if(fight): 
-                            print("The boss is attacking you.")
-                            Boss.attackcharacter()
-                            if(self.health > 0):
-                                continue
-                            else:
-                                return False
-                        else: 
-                            print("Good job, you defeated the boss.")
-                            print("")
-                    case 2:
-                        self.usepotion()
-                        continue
+                options = int(input("You have two options. Do you want to (1) attack the boss, or (2) use a potion to restore some health?"))
+                if(options == 1):
+                    self.attackboss(boss)
+                    print("The bosses health is now {health}.".format(health = boss.health))
+                    if(boss.health <= 0):
+                        print("You have successfully beat the boss.")
+                        self.health = 100
+                        self.money += random.randint(10, 50) 
+                        print("Your health has gone back to 100. You also gained {money} dollars from the boss.".format(money = self.money))                        
+                        break 
+                    print("The boss is attacking you.")
+                    boss.attackcharacter(self)
+                    if(self.health <= 0):
+                        break
+                if(options == 2):
+                    self.usepotion()
+                    continue
             except ValueError: 
                 print("Please eneter a valid number.")
                 continue 
@@ -176,20 +170,20 @@ class Boss():
         else: 
             return False
 
-    def attackcharacter(self): 
-        ifdodge = self.dodgeattack()
+    def attackcharacter(self, character): 
+        ifdodge = self.dodge()
         if(ifdodge): 
             print("You were able to dodge the attack.")
         else: 
-            crit = self.critchance()
+            crit = self.crit()
             if(crit):
                 if(self.health >= 50):
-                    (Character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                    (character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
                 else: 
-                    (Character.losehealth(self.health * .75))
+                    (character.losehealth(self.health * .75))
             else: 
-                (Character.losehealth(10))
-        print("Your health is now {health}.".format(health = Character.health()))
+                (character.losehealth(10))
+        print("Your health is now {health}.".format(health = character.health))
       
     def losehealth(self, minus_health):
         health = self.health
@@ -463,7 +457,7 @@ def dream_map():
     print("You have successfully completed all the puzzles and defeated all the bosses.")
     print("You now have all four things that the man requested. Your journey is almost complete!")
 
-def game4(): 
+def game4(player): 
     Character.combat(player)
 
     print("Fix this")
@@ -738,6 +732,7 @@ def distribute_stat():
      
 #Main
 player = distribute_stat() 
+game4(player)
 Intro()
 count = 0
 while(count < 1):
