@@ -27,7 +27,7 @@ class Character():
                     print("You do not have enough money to buy this many potions, try again.")
                     continue
                 else:
-                    print("You are successfully able to buy {amount} potions.".format(amount = tobuy))
+                    print(f"You are successfully able to buy {tobuy} potions.")
                     self.money -= tobuy * 10 
                     self.potions += tobuy 
                     break
@@ -60,35 +60,24 @@ class Character():
             print("You do not have a potion to use.") 
 
     def useapotion(self):
-        self.health += random.randint(1,5)
+        self.health += random.randint(1,20)
         if (self.health >= self.maxhealth):
             self.health = self.maxhealth
         print(f"Your health status is now {self.health}.") 
     
-    def attackboss(self, boss): 
+    def attackboss(self): 
         if(self.dodge()): 
             print("The boss was able to dodge your attack. You did not deal any damage")
             return True
         else: 
-            crit = self.critchance()
-            if(crit):
+            if(self.crit()):
                 if(self.health >= 50):
-                    (boss.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
-                    if (boss.health <= 0):
-                        return False 
-                    else:
-                        return True
+                    (Boss.losehealth(random.randint(32,50)))
                 else:
-                    (boss.losehealth(self.health * .75))
-                    if(boss.health <= 0):
-                        return False 
-                    else:
-                        return True
+                    (Boss.losehealth(self.health *.75))
             else: 
-                (boss.losehealth(10))
-                if(boss.health <= 0):
-                    return False
-
+                (Boss.losehealth(random.randint(1,10)))
+                
     def dodge(self):
         if(random.randint(1, 100) < self.speed*4):
             return True
@@ -96,11 +85,10 @@ class Character():
             return False
     
     def crit(self):
-        chance = random.randint(1,10) * self.critchance
-        if(chance < 40):
+        if(random.randint(1,20) * self.critchance < 25):
             print("You were not able to land critical damage.")
             return False
-        if(chance >= 40):
+        else: 
             print("You were able to land a critical strike.")
             return True
 
@@ -114,11 +102,11 @@ class Character():
             self.health = health 
 
     def combat(self):
-        crit = random.randint(1,7)
-        attack = random.randint(1,7)
-        dodge = random.randint(1,7)
-        speed = random.randint(1,7)
-        boss = Boss(100, 100, crit, speed)
+        crit = random.randint(1,5)
+        attack = random.randint(1,5)
+        dodge = random.randint(1,5)
+        speed = random.randint(1,5)
+        boss = boss(100, 100, crit, speed)
         print(f"The boss has {crit} number, {attack} number, {dodge} number, and {speed} number.")
         while True:
             print(f"Your current stats are {self.health}, and {self.potions} potions to use.")
@@ -143,7 +131,6 @@ class Character():
             except ValueError: 
                 print("Please eneter a valid number.")
                 continue 
-
 
 class Boss():
     def __init__(self, health, maxhealth, crit, speed):
@@ -173,12 +160,12 @@ class Boss():
             crit = self.crit()
             if(crit):
                 if(self.health >= 50):
-                    (character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
+                    (Character.losehealth((self.maxhealth * 0.5) - (self.health * 0.50)))
                 else: 
-                    (character.losehealth(self.health * .75))
+                    (Character.losehealth(self.health * .75))
             else: 
-                (character.losehealth(10))
-        print("Your health is now {health}.".format(health = character.health))
+                (Character.losehealth(10))
+        print("Your health is now {health}.".format(health = Character.health))
       
     def losehealth(self, minus_health):
         health = self.health
@@ -187,7 +174,6 @@ class Boss():
         else:
             health -= minus_health
             print(f"The boss lost health. The bosses new health is {health}.")
-
 
 def Intro():
     print("\nWelcome to the game Mindgames.\n\nIn this game, you are trapped in your mind.\nTo escape your mind, talk to the people around the town in order to discover the objective.")
@@ -220,9 +206,9 @@ def man_conversation2():
     input = input("")
     print("\nYou: 'I have although I still have questions.'")
     input = input("")
-    print("\nOld Man: 'I understand. But remember, the path you're walking now is your own. The keys you have gathered will open the door to your escape. Trust in them.'")
+    print("\nOld Man: 'I understand. The keys you have gathered will open the door to your escape.'")
     input = input("")
-    print("\nThe old man turns his gaze toward the door. It's time to move forward.\n\nYou feel a sense of purpose growing within you, but also an overwhelming weight of uncertainty.")
+    print("\nThe old man turns his gaze toward the door. It's time to move forward.\n\nYou feel an overwhelming weight of uncertainty.")
     input = input("")
 
 def tavern(): 
@@ -338,7 +324,6 @@ def water_map(player):
     print("You have completed all doors in this world and you are sent back to the previous world.")
     return False 
    
-    
 def ground_map(player):
     countkeys = 1
     print("You enter into the next world and the ground is dirt and the sky is dark. Like the other worlds, there are four doors around you.")
@@ -498,7 +483,7 @@ def game3(num):
                 print("This is the only hint: The word word relates to water, and it has two of the same vowel.")
                 d += 1
         print("Your answer is the correct word: lagoon.")
-    if (num == 3):
+    if (num == 4):
         answer = "blaze"
         print("The number you have to decode is: 98.108.97.122.101")
         guess = input("What do you think the word is: ").lower()
